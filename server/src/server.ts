@@ -1,0 +1,1 @@
+console.log("Hail Hecate, Queen of Heaven")
