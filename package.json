@@ -1,11 +1,12 @@
 {
-  "name": "fullstack--hr-management-app",
+  "name": "hr-management-app",
   "version": "1.0.0",
-  "description": "backend",
+  "description": "fullstack",
   "main": "server/server.ts",
   "scripts": {
     "build": "tsc",
-    "start:dev": "ts-node-dev --respawn --transpile-only server/src/server.ts"
+    "db:seed": "npx ts-node server/src/seed.ts",
+    "start:dev": "ts-node-dev --respawn --transpile-only --exit-child server/src/server.ts"
   },
   "author": "C",
   "license": "ISC",
