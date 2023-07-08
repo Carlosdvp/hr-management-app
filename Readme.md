@@ -2,6 +2,16 @@
 
 ## Full Stack Application
 
+## Backend
+
+- mySQL database
+- docker
+- Prisma
+- Node.js
+- Express
+- TypeScript
+
+
 ## Front End
 
 - Vue
@@ -10,11 +20,3 @@
 - TailwindCSS
 - Vue Router
 - Vuetify (optional)
-
-## Backend
-
-- mySQL database
-- docker
-- Prisma
-- Node.js
-- Express
