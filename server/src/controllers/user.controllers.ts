@@ -3,7 +3,7 @@ import prisma from "../services/prisma";
 
 export const userController = {
   async getUsers(req: Request, res: Response) {
-    const users = await prisma.user.findMany();
+    const users: Object = await prisma.user.findMany();
 
     return res.json(users);
   },
@@ -21,7 +21,7 @@ export const userController = {
     return res.json({ user: user });
   },
   async findUniqueUser(req: Request, res: Response) {
-    const paramEmail = req.params.email;
+    const paramEmail: string = req.params.email;
 
     const uniqueUser = await prisma.user.findUnique({
       where: {
@@ -32,8 +32,8 @@ export const userController = {
     return res.json({ uniqueUser: uniqueUser });
   },
   async updateUser(req: Request, res: Response) {
-    const paramEmail = req.params.email;
-    const userName = req.body.firstName;
+    const paramEmail: string = req.params.email;
+    const userName: string = req.body.firstName;
 
     const updatedUser = await prisma.user.update({
       data: {
@@ -47,7 +47,7 @@ export const userController = {
     return res.json({ updatedUser: updatedUser });
   },
   async deleteUser(req: Request, res: Response) {
-    const paramEmail = req.params.email;
+    const paramEmail: string = req.params.email;
 
     const deletedUser = await prisma.user.delete({
       where: {
