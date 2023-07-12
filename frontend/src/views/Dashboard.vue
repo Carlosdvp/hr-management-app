@@ -50,7 +50,7 @@
             <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
           </svg>
         </div>
-
+        
         <!-- Search bar -->
         <div class="w-[calc(100%-30px)] flex">
           <div class="w-[calc(100%-200px)] flex justify-center ">
@@ -59,7 +59,7 @@
               <label for="voice-search" class="sr-only">Search</label>
               <div class="relative w-full">
                 <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                  <svg aria-hidden="true" class="w-5 h-auto text-gray-500 dark:text-gray-400" fill="" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <svg aria-hidden="true" class="w-5 h-auto text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
                   </svg>
                 </div>
@@ -100,7 +100,11 @@
 
       <div class="h-[calc(100vh-50px)] bg-gray-50 p-[20px]">
         <div class="border border-gray-300 rounded-md p-[20px] h-full">
-          <router-view></router-view>
+          <p v-if="users.length === 0">No users found</p>
+          <p v-else v-for="user in users" :key="user.id">
+            {{ user.firstName }}
+            {{ user.lastName }}
+          </p>
         </div>
       </div>
 
@@ -110,9 +114,12 @@
 
 <script setup lang="ts">
 import { Ref, ref } from 'vue';
+import axios from 'axios';
+import { User } from '@/types/User';
 
 const showDropDown: Ref<boolean> = ref(false);
 const showSide: Ref<boolean> = ref(true);
+const users = ref<User[]>([]);
 
 const toggleSideBar = (): void => {
   showSide.value = !showSide.value;
@@ -121,4 +128,18 @@ const toggleSideBar = (): void => {
 const toggleDrop = (): void => {
   showDropDown.value = !showDropDown.value;
 }
+
+const getUsers = async (): Promise<void> => {
+  try {
+    const response = await axios.get<User[]>('http://localhost:3330/api/users');
+    users.value = response.data;
+
+    console.log(response.data);
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+getUsers();
+
 </script>

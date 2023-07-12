@@ -19,10 +19,16 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       "@": [ "src"],
+      "@/*": ["src/*"],
+      "@/types/*": ["src/types/*"]
     },
+    "typeRoots": [
+      "./src/@types",
+      "./node_modules/@types",
+    ]
   },
   "include": [
     "src/**/*.ts",
