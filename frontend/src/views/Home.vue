@@ -3,7 +3,11 @@
 </script>
 
 <template>
-  <div class="flex w-[100%] p-7 bg-slate-300">
-    <h1 class="text-blue-600 mx-auto my-0">Home, sweet home, lovely Demoness.</h1>
+  <img src="../assets/icon.PNG" alt="icon" class="h-10 p-6 mx-auto my-0">
+  <div class="w-[100%] p-7 bg-slate-300">
+    <label>Email</label>
+    <input type="email">
+    <label>Password</label>
+    <input type="password">
   </div>
 </template>
