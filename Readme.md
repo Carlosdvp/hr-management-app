@@ -36,4 +36,5 @@
 7. Connect UI with the API
 8. Separate diferent seciotns of the Dashboard into components [Navbar, SearchBar, Sidebar, UserTable, UserMenuDropdown]
 9. Work on presenting the user data in the UserTable component.
-10. 
+10. Fix the SearchBar component's styles
+11. 

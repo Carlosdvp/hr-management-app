@@ -10,8 +10,6 @@ const getUsers = async (): Promise<void> => {
   try {
     const response = await axios.get<User[]>('http://localhost:3330/api/users');
     users.value = response.data;
-
-    console.log(response.data);
   } catch (error) {
     console.error(error)
   }
@@ -22,7 +20,6 @@ const getUsers = async (): Promise<void> => {
     try {
       const response = await axios.get<User[]>('http://localhost:3330/api/users');
       users.value = response.data;
-      console.log(response.data);
     } catch (error) {
       console.error(error)
     }
@@ -36,7 +33,6 @@ getUsers();
 <template>
   <div class="h-[calc(100vh-50px)] bg-gray-200 p-[20px]">
     <div class="border-2 border-white p-[20px]">
-
       <header
         class="grid user-grid col-span-full gap-1 h-[5vh] items-center justify-between bg-slate-300"
       >
@@ -63,7 +59,6 @@ getUsers();
           <p class="">{{ user.lastName }}</p>
           <p class="">{{ user.password ? true : false }}</p>
         </div>
-        
       </div>
     </div>
   </div>
