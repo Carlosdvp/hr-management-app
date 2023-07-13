@@ -15,9 +15,22 @@ const getUsers = async (): Promise<void> => {
   } catch (error) {
     console.error(error)
   }
+
+  const dbPollingInterval = 60 *60 *1000; // 1 hour
+
+  setInterval(async () => {
+    try {
+      const response = await axios.get<User[]>('http://localhost:3330/api/users');
+      users.value = response.data;
+      console.log(response.data);
+    } catch (error) {
+      console.error(error)
+    }
+  }, dbPollingInterval);
 }
 
 getUsers();
+
 </script>
 
 <template>
@@ -42,7 +55,7 @@ getUsers();
         <div 
           v-for="user in users"
           :key="user.id" 
-          class="bg-slate-200 grid gap-x-1 text-center user-grid border border-slate-500 my-1 py-1"
+          class="bg-slate-200 grid gap-x-1 text-center user-grid border border-slate-400 my-1 py-1"
         >
           <p class="">{{ user.id.substring(0,9) + '...' }}</p>
           <p class="">{{ user.email }}</p>
