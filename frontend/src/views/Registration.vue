@@ -10,7 +10,7 @@ const confirmPassword: Ref<string> = ref<string>('')
 <template>
   <Navbar />
   <main 
-    class="w-[70vw] h-[100vh] mx-auto my-0 bg-slate-500 flex flex-col items-start justify-start text-white">
+    class="w-[70vw] h-[90vh] mx-auto my-0 mt-4 bg-slate-500 flex flex-col items-start justify-start text-white">
     <header
       class="p-8">
       <h1

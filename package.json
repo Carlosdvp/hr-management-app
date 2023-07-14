@@ -22,7 +22,10 @@
   },
   "dependencies": {
     "@prisma/client": "^4.16.2",
+    "@types/dotenv": "^8.2.0",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "stytch": "^7.2.0",
     "ts-node": "^10.9.1"
   }
 }
