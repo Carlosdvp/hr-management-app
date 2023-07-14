@@ -20,6 +20,7 @@
 - TailwindCSS
 - Vue Router
 - Vuetify (optional)
+- Stytch (authentication)
 
 
 -------------------------------------------------------------------
@@ -34,7 +35,10 @@
 5. Create a Vite project using Vue and TS
 6. Add TailwindCSS, vue-router, path alias (@), vue typings
 7. Connect UI with the API
-8. Separate diferent seciotns of the Dashboard into components [Navbar, SearchBar, Sidebar, UserTable, UserMenuDropdown]
-9. Work on presenting the user data in the UserTable component.
-10. Fix the SearchBar component's styles
-11. 
+
+8. Dashboard View
+    - Move diferent sections into separate components [Navbar, SearchBar, Sidebar, UserTable, UserMenuDropdown]
+    - Work on UserTable component
+    - Fix the SearchBar component's styles
+9. Home view -- Login / Registration
+    - 
