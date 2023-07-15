@@ -1,8 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { envs, Client } from "stytch";
-import { userRoutes } from "./routes";
+import { authRoutes, userRoutes } from "./routes";
 
 dotenv.config();
 
@@ -22,13 +21,8 @@ class App {
 
   routes() {
     this.server.use("/api/users", userRoutes);
+    this.server.use("/api/auth", authRoutes);
   }
 }
-
-const client = new Client({
-  project_id: process.env.PROJECT_ID,
-  secret: process.env.STYTCH_API_SECRET,
-  env: envs.test,
-});
 
 export default new App().server;

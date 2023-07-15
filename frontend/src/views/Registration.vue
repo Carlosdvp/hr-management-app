@@ -2,6 +2,8 @@
 import Navbar from '@/components/Navbar.vue';
 import { Ref, ref } from 'vue'
 
+const firstName: Ref<string> = ref<string>('')
+const lastName: Ref<string> = ref<string>('')
 const email: Ref<string> = ref<string>('')
 const password: Ref<string> = ref<string>('')
 const confirmPassword: Ref<string> = ref<string>('')
@@ -30,6 +32,24 @@ const confirmPassword: Ref<string> = ref<string>('')
     <form
       @submit.prevent=""
       class="flex-1 block w-[80%] mx-auto my-0 bg-slate-300 text-black py-16 px-6 text-center">
+      <label class="block mb-6">
+        <span class="block text-base font-medium mb-4">Enter your first name</span>
+        <input
+          type="text"
+          name="firstName" 
+          v-model="firstName"
+          placeholder="Fulanito"
+          class="h-[2rem] p-2 border border-blue-400 focus:outline-none focus:border-red-800 focus:ring-red-800" />
+      </label>
+      <label class="block mb-6">
+        <span class="block text-base font-medium mb-4">Enter your last name</span>
+        <input
+          type="text"
+          name="lastName" 
+          v-model="lastName"
+          placeholder="de Tal"
+          class="h-[2rem] p-2 border border-blue-400 focus:outline-none focus:border-red-800 focus:ring-red-800" />
+      </label>
       <label class="block mb-6">
         <span class="block text-base font-medium mb-4">Enter your email</span>
         <input
