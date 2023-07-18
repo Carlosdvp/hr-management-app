@@ -1,8 +1,36 @@
 <script setup lang="ts">
 import { Ref, ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter();
 
 const email: Ref<string> = ref<string>('')
 const password: Ref<string> = ref<string>('')
+
+const userLogin = async () => {
+  if (!email.value || !password.value) {
+    return alert('Please enter username and password');
+  }
+
+  const sendUserData = await fetch('http://localhost:3330/api/auth/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: email.value,
+      password: password.value
+    })
+  }).then(sendUserData => sendUserData.json())
+
+  if (sendUserData.success) {
+    localStorage.setItem('token', sendUserData.token)
+    router.push('/dashboard')
+  } else {
+    alert(sendUserData.message);
+  }
+}
+
 </script>
 
 <template>
@@ -25,7 +53,7 @@ const password: Ref<string> = ref<string>('')
     </header>
 
     <form
-      @submit.prevent=""
+      @submit.prevent="userLogin"
       class="flex-1 block w-[80%] mx-auto my-0 bg-slate-300 text-black py-16 px-6 text-center">
       <label class="block mb-6">
         <span class="block text-base font-medium mb-4">Enter your email</span>
