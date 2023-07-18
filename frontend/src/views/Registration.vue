@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Navbar from '@/components/Navbar.vue';
+import router from '@/router';
 import { Ref, ref } from 'vue'
 
 const firstName: Ref<string> = ref<string>('')
@@ -7,6 +8,36 @@ const lastName: Ref<string> = ref<string>('')
 const email: Ref<string> = ref<string>('')
 const password: Ref<string> = ref<string>('')
 const confirmPassword: Ref<string> = ref<string>('')
+
+const registerNewUser = async () => {
+  if (!firstName.value || !lastName.value || !email.value || !password.value || !confirmPassword.value) {
+    return alert('Please fill in all the fields');
+  }
+
+  if (password.value !== confirmPassword.value) {
+    return alert('Passwords do not match');
+  }
+
+  const sendUserData = await fetch('http://localhost:3330/api/auth/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      firstName: firstName.value,
+      lastName: lastName.value,
+      email: email.value,
+      password: password.value
+    })
+  }).then(sendUserData => sendUserData.json())
+
+  if (sendUserData.success) {
+    localStorage.setItem('token', sendUserData.token)
+    router.push('/')
+  } else {
+    alert(sendUserData.message);
+  }
+}
 </script>
 
 <template>
@@ -30,7 +61,7 @@ const confirmPassword: Ref<string> = ref<string>('')
     </header>
 
     <form
-      @submit.prevent=""
+      @submit.prevent="registerNewUser"
       class="flex-1 block w-[80%] mx-auto my-0 bg-slate-300 text-black py-16 px-6 text-center">
       <label class="block mb-6">
         <span class="block text-base font-medium mb-4">Enter your first name</span>

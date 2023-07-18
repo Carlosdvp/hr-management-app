@@ -1,3 +1,34 @@
+<script setup lang="ts">
+import { useRouter } from 'vue-router';
+import { Ref, ref } from 'vue';
+
+const router = useRouter();
+const showDropDown: Ref<boolean> = ref(false);
+
+const toggleDrop = (): void => {
+  showDropDown.value = !showDropDown.value;
+}
+
+const logout =async () => {
+  const apiCall = await fetch('http://localhost:3330/api/auth/logout', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      session_token: localStorage.getItem('token')
+    })
+  }).then(apiCall => apiCall.json())
+
+  if (apiCall.success) {
+    localStorage.removeItem('token')
+    router.push('/login')
+  } else {
+    alert(apiCall.message)
+  }
+}
+</script>
+
 <template>
   <div class="w-[200px]">
     
@@ -16,21 +47,14 @@
         <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Account settings</a>
         <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Support</a>
         <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">License</a>
-        <form method="POST" action="#" role="none">
-          <button type="submit" class="text-gray-700 block w-full px-4 py-2 text-left text-sm" role="menuitem" tabindex="-1" id="menu-item-3">Sign out</button>
-        </form>
+        <button
+          @click="logout"
+          type="submit"
+          class="text-gray-700 block w-full px-4 py-2 text-left text-sm" role="menuitem"
+          tabindex="-1"
+          >Sign out</button>
       </div>
     </div>
 
   </div>
 </template>
-
-<script setup lang="ts">
-import { Ref, ref } from 'vue';
-
-const showDropDown: Ref<boolean> = ref(false);
-
-const toggleDrop = (): void => {
-  showDropDown.value = !showDropDown.value;
-}
-</script>

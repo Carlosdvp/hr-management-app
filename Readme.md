@@ -41,4 +41,11 @@
     - Work on UserTable component
     - Fix the SearchBar component's styles
 9. Home view -- Login / Registration
-    - 
+    - create the Login component and registration view
+
+10. On the BE add the authRoutes and controllers
+    - test the Registration endpoint and add a user to the DB (this is done)
+    - test the remaining endpoints with postman, make sure they refer to the data in the db
+        - /login
+        - /authenticate
+        - /logout
