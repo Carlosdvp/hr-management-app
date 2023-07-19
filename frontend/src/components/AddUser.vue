@@ -59,54 +59,53 @@ const registerNewUser = async () => {
     </div>
     <div>
       <form
-       
-        class="flex-1 block mx-auto my-0 bg-slate-600 text-black py-6 px-6 text-center">
+        class="flex-1 block mx-auto my-0 bg-slate-600 text-black py-6 px-6 text-left">
         <label class="block mb-6">
-          <span class="block text-base font-medium mb-4 text-white">Enter a first name</span>
+          <span class="block text-base font-medium mb-4 text-white">First name</span>
           <input
             type="text"
             name="firstName" 
             v-model="firstName"
             placeholder="Name"
-            class="h-[2rem] p-2 border border-blue-400 focus:outline-none focus:border-red-800 focus:ring-red-800" />
+            class="h-[2rem] pl-2 border border-blue-400 focus:outline-none focus:border-red-800 focus:ring-red-800" />
         </label>
         <label class="block mb-6">
-          <span class="block text-base font-medium mb-4 text-white">Enter a last name</span>
+          <span class="block text-base font-medium mb-4 text-white">Last name</span>
           <input
             type="text"
             name="lastName" 
             v-model="lastName"
             placeholder="Lastname"
-            class="h-[2rem] p-2 border border-blue-400 focus:outline-none focus:border-red-800 focus:ring-red-800" />
+            class="h-[2rem] pl-2 border border-blue-400 focus:outline-none focus:border-red-800 focus:ring-red-800" />
         </label>
         <label class="block mb-6">
-          <span class="block text-base font-medium mb-4 text-white">Enter an email</span>
+          <span class="block text-base font-medium mb-4 text-white">Email</span>
           <input
             type="email"
             name="email" 
             v-model="email"
             placeholder="email@test.com"
-            class="h-[2rem] p-2 border border-blue-400 focus:outline-none focus:border-red-800 focus:ring-red-800" />
+            class="h-[2rem] pl-2 border border-blue-400 focus:outline-none focus:border-red-800 focus:ring-red-800" />
         </label>
         <label class="block mb-6">
-          <span class="block text-base font-medium mb-4 text-white">Enter a password</span>
+          <span class="block text-base font-medium mb-4 text-white">Initial password</span>
           <input
             type="password"
             name="password" 
             v-model="password"
             placeholder="******"
-            class="h-[2rem] p-2 border border-blue-400 focus:outline-none focus:border-red-800 focus:ring-red-800" />
+            class="h-[2rem] pl-2 border border-blue-400 focus:outline-none focus:border-red-800 focus:ring-red-800" />
         </label>
         <input
           type="submit"
           value="Add User"
           @click="registerNewUser"
-          class="w-[80%] border border-white px-4 py-1 cursor-pointer font-semibold transition duration-200 ease-linear text-white hover:bg-white hover:text-black" />
+          class="w-[100%] border mx-auto my-0 border-white px-4 py-1 cursor-pointer font-semibold transition duration-200 ease-linear text-white hover:bg-white hover:text-black" />
         <input
           type="submit"
-          value="Exit"
+          value="Cancel"
           @click="toggleUserPanel"
-          class="w-[80%] border border-white px-4 py-1 mt-4 cursor-pointer font-semibold transition duration-200 ease-linear text-white hover:bg-white hover:text-black" />
+          class="w-[100%] border mx-auto my-0 border-white px-4 py-1 mt-4 cursor-pointer font-semibold transition duration-200 ease-linear text-white hover:bg-white hover:text-black" />
       </form>
     </div>
     
