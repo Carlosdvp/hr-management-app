@@ -15,17 +15,16 @@ const toggleSideBar = (): void => {
     @click="toggleSideBar"
   >
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-[25px] h-[25px]">
-      <!-- https://fontawesome.com -->
       <path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" fill="white" />
     </svg>
   </div>
 
   <div class="w-[200px] h-full bg-slate-200 text-white" :class="{ 'hidden': !showSide }">
-    <div class="h-[50px] bg-slate-800 flex items-center px-4">
-      <h3 class="font-bold text-xl">Admin Dashboard</h3>
+    <div class="h-[50px] bg-slate-800 flex items-center justify-center">
+      <h3 class="font-bold text-xl">Dashboard</h3>
     </div>
-    <div class="h-[calc(100vh-50px)] bg-slate-600">
-      <div class="flex flex-col justify-between h-full pr-[20px] space-y-[10px]">
+    <div class="h-[calc(100vh-50px)] bg-slate-600 border-x-2 border-x-slate-400">
+      <div class="flex flex-col justify-between items-center h-full">
         <div class="flex flex-col">
           <router-link to="/" class="inline-flex relative items-center py-[10px] px-[10px] w-full text-sm font-medium rounded-md border-gray-200 hover:bg-gray-200 hover:text-gray-800  transition duration-400 ease-in-out">
             <svg aria-hidden="true" class="mr-2 w-[25px] h-[25px] fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -38,12 +37,6 @@ const toggleSideBar = (): void => {
               <path fill-rule="evenodd" d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z" clip-rule="evenodd"></path>
             </svg>
             Profile
-          </router-link>
-          <router-link to="/" class="inline-flex relative items-center py-[10px] px-[10px] w-full text-sm font-medium rounded-md border-gray-200 hover:bg-gray-300  hover:text-gray-800 transition duration-400 ease-in-out">
-            <svg aria-hidden="true" class="mr-2 w-[25px] h-[25px] fill-current" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zm0 2h10v7h-2l-1 2H8l-1-2H5V5z" clip-rule="evenodd"></path>
-            </svg>
-            Messages
           </router-link>
         </div>
         <div class="h-[50px]">

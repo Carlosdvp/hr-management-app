@@ -4,9 +4,7 @@
 
     <div class="w-full h-full">
       <div
-        class="h-[50px] bg-gray-100 flex items-center shadow-sm px-[20px] w-full py-[10px] z-10 border-b"
-      >
-        <SearchBar />
+        class="h-[50px] bg-gray-100 flex items-center justify-end shadow-sm w-full py-[10px] z-10 border-b">
         <UserMenuDropdown />
       </div>
 
@@ -18,6 +16,5 @@
 <script setup lang="ts">
 import UserMenuDropdown from '@/components/UserMenuDropdown.vue'
 import UserTable from '@/components/UserTable.vue'
-import SearchBar from '@/components/SearchBar.vue'
 import Sidebar from '@/components/Sidebar.vue'
 </script>

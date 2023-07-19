@@ -2,6 +2,8 @@
 import { ref } from 'vue';
 import axios from 'axios';
 import { User } from '@/types/User';
+import SearchBar from './SearchBar.vue';
+import AddUserButton from './AddUserButton.vue';
 
 const users = ref<User[]>([]);
 const headerItems = ref<string[]>(['Id', 'Email', 'First Name', 'Last Name', 'Password']);
@@ -31,7 +33,12 @@ getUsers();
 </script>
 
 <template>
-  <div class="h-[calc(100vh-50px)] bg-gray-200 p-[20px]">
+  <div class="h-[calc(100vh-50px)] max-w-[1080px] w-full mx-auto my-0 bg-gray-200 p-[20px]">
+    <div class="h-[60px] flex shadow-sm px-7 pb-5 items-center justify-end">
+      <SearchBar />
+      <AddUserButton />
+    </div>
+
     <div class="border-2 border-white p-[20px]">
       <header
         class="grid user-grid col-span-full gap-1 h-[5vh] items-center justify-between bg-slate-300"
