@@ -6,74 +6,99 @@ import Navbar from '@/components/Navbar.vue';
   <Navbar />
 
   <div 
-    class="w-[100vw] py-2 bg-slate-300 h-[100vh] flex flex-col items-center">
+    class="w-full py-2 bg-slate-500 h-[100vh] flex flex-col items-center">
     
-    <header class="flex bg-yellow-400 w-full border border-y-red-500">
-      <!-- img icon  for the user showing a pisture or their initials -->
-      <img src="" alt="icon" class="bg-blue-400 w-10 m-2">
-      <h1 class="p-3 font-semibold text-lg">username</h1>
+    <header class="flex justify-between bg-slate-400 w-[95%] text-white">
+      <div class="flex items-center">
+        <!-- img icon  for the user showing a pisture or their initials -->
+        <img src="" alt="icon" class="bg-blue-400 w-10 mx-4 rounded-full">
+        <div>
+          <h1 class="px-3 py-1 font-semibold text-lg">
+            username
+          </h1>
+          <p class="text-sm text-gray-600 pb-2">Full Stack Developer</p>
+        </div>
+      </div>
+      <div class="flex items-center">
+        <a 
+          class="text-md mx-4 hover:text-blue-800" 
+          href="mailto:username@gmail.com">
+          username@gmail.com</a>
+        <p class="text-sm mx-4">591-123-45678</p>
+        <p class="text-sm mx-4">Created: Jan 16 10:08 AM</p>
+        <p class="text-sm mx-4">Last Modified: Feb 21 3:25 PM</p>
+      </div>
     </header>
 
-    <main class="grid grid-cols-1 gap-2 pt-4 w-[90%] max-w-6xl">
-      <div class="grid grid-cols-2 gap-4 bg-white p-4">
+    <main class="grid grid-cols-1 gap-2 p-8 mt-8 w-[80%] max-w-6xl bg-slate-300">
+      <div class="grid grid-cols-2 gap-4 bg-slate-100 p-4">
         <!-- First column -->
         <div class="px-4">
           <div class="mb-4 flex justify-between">
-            <label class="mr-2 text-gray-600">User ID:</label>
+            <label class="mr-2 text-gray-600 p-1">User ID:</label>
             <input type="text" value="12345" class="w-[70%] bg-gray-100 mx-2 p-1 text-slate-400 rounded" readonly />
           </div>
 
           <div class="mb-4 flex justify-between">
-            <label class="block text-gray-600">First Name:</label>
-            <input type="text" class="w-[70%] border border-gray-300 mx-2 py-1 rounded" />
+            <label class="block text-gray-600 p-1">First Name:</label>
+            <input type="text" class="w-[70%] border border-gray-300 mx-2 p-1 rounded" />
           </div>
 
           <div class="mb-4 flex justify-between">
-            <label class="block text-gray-600">Last Name:</label>
-            <input type="text" class="w-[70%] border border-gray-300 mx-2 py-1 rounded" />
+            <label class="block text-gray-600 p-1">Last Name:</label>
+            <input type="text" class="w-[70%] border border-gray-300 mx-2 p-1 rounded" />
           </div>
         </div>
 
         <!-- Second column -->
         <div class="px-4">
           <div class="mb-4 flex justify-between">
-            <label class="block text-gray-600">Email:</label>
+            <label class="block text-gray-600 p-1">Email:</label>
             <input type="email" class="w-[80%] border border-gray-300 mx-2 py-1 rounded" />
           </div>
 
           <div class="mb-4 flex justify-between">
-            <label class="block text-gray-600">Mobile:</label>
+            <label class="block text-gray-600 p-1">Mobile:</label>
             <input type="tel" class="w-[80%] border border-gray-300 mx-2 py-1 rounded" />
           </div>
 
           <div class="mb-4 flex justify-between">
-            <label class="block text-gray-600">Country:</label>
+            <label class="block text-gray-600 p-1">Country:</label>
             <select class="w-[80%] border border-gray-300 mx-2 p-1 text-slate-500 rounded">
               <option value="">Select a Country</option>
-              <!-- Add your list of countries here as <option> elements -->
+              <option value="1">USA</option>
+              <option value="2">Russia</option>
+              <option value="3">Portugal</option>
+              <option value="4">Sweden</option>
+              <option value="1">Hungary</option>
+              <option value="2">Italy</option>
+              <option value="3">Poland</option>
+              <option value="4">Serbia</option>
             </select>
           </div>
 
           <div class="mb-4 flex justify-between">
-            <label class="block text-gray-600">City:</label>
+            <label class="block text-gray-600 p-1">City:</label>
             <input type="text" class="w-[80%] border border-gray-300 mx-2 py-1 rounded" />
           </div>
         </div>
       </div>
 
-      <div class="grid grid-cols-2 gap-4 bg-white p-4">
+      <div class="grid grid-cols-2 gap-4 bg-slate-100 p-4">
         <!-- First column -->
         <div class="w-[80%] mx-auto my-0">
           <div class="mb-4 flex justify-between">
-            <label class="mr-2 text-gray-600">Developer Type:</label>
+            <label class="mr-2 text-gray-600 p-1">Developer Type:</label>
             <select class="w-[60%] border border-gray-300 px-2 p-1 text-slate-500 rounded">
               <option value="">Select a developer type</option>
-              <!-- Add your list of options here as <option> elements -->
+              <option value="1">Frontend</option>
+              <option value="2">Backend</option>
+              <option value="3">Full stack</option>
             </select>
           </div>
 
           <div class="mb-4 flex justify-between">
-            <label class="block text-gray-600">Main Tech Stack:</label>
+            <label class="block text-gray-600 p-1">Main Tech Stack:</label>
             <textarea class="w-[70%] h-32 border border-gray-300 px-2 p-1 text-slate-500 rounded"></textarea>
           </div>
         </div>
@@ -81,9 +106,9 @@ import Navbar from '@/components/Navbar.vue';
         <!-- Second column -->
         <div class="w-[80%] mx-auto my-0">
           <div class="mb-4 flex justify-between">
-            <label class="mr-2 text-gray-600">Years of Experience:</label>
-            <select class="w-[60%] border border-gray-300 px-2 p-1 text-slate-500 rounded">
-              <option value="">Select years of experience</option>
+            <label class="text-gray-600 p-1">Years of Experience:</label>
+            <select class="w-[50%] border border-gray-300 px-2 p-1 text-slate-500 rounded">
+              <option value="">Number of years</option>
               <option value="1">1 year</option>
               <option value="2">2 years</option>
               <option value="3">3 years</option>
@@ -96,8 +121,8 @@ import Navbar from '@/components/Navbar.vue';
           </div>
 
           <div class="mb-4 flex justify-between">
-            <label class="mr-2 text-gray-600">English Level:</label>
-            <select class="w-[60%] border border-gray-300 px-2 p-1 text-slate-500 rounded">
+            <label class="mr-2 text-gray-600 p-1">English Level:</label>
+            <select class="w-[50%] border border-gray-300 px-2 p-1 text-slate-500 rounded">
               <option value="">Select English level</option>
               <option value="basic">Basic</option>
               <option value="intermediate">Intermediate</option>
@@ -105,23 +130,86 @@ import Navbar from '@/components/Navbar.vue';
               <option value="fluent">Fluent</option>
             </select>
           </div>
+        </div>
+      </div>
 
-          <div class="flex items-center">
-            <!-- Empty space (placeholder) -->
+      <div class="grid grid-cols-2 gap-4 bg-slate-100 p-4">
+        <!-- First column -->
+        <div class="w-[80%] mx-auto my-0">
+          <div class="mb-4 flex justify-between">
+            <label class="block text-gray-600 p-1">Candidate Status:</label>
+            <select class="w-[60%] border border-gray-300 px-2 py-1 rounded text-slate-500">
+              <option value="">Select candidate status</option>
+              <option value="Interview">Interview</option>
+              <option value="Tech Interview">Tech Interview</option>
+              <option value="Pending">Pending</option>
+              <option value="Hired">Hired</option>
+            </select>
           </div>
 
-          <div class="flex items-center">
-            <!-- Empty space (placeholder) -->
+          <div class="mb-4 flex justify-between">
+            <label class="block text-gray-600 p-1">Recruiter:</label>
+            <input type="text" class="w-[60%] border border-gray-300 px-2 py-1 rounded" />
+          </div>
+
+          <div class="mb-4 flex justify-between">
+            <label class="block text-gray-600 p-1">Source:</label>
+            <select class="w-[60%] border border-gray-300 px-2 py-1 rounded text-slate-500">
+              <option value="">Select source</option>
+              <option value="Internet">Internet</option>
+              <option value="Job Site">Job Site</option>
+              <option value="Referral">Referral</option>
+              <option value="Walk-in">Walk-in</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Second column -->
+        <div class="w-[80%] mx-auto my-0">
+          <div class="mb-4 flex justify-between">
+            <label class="block text-gray-600 p-1">Availability:</label>
+            <select class="w-[50%] border border-gray-300 mx-2 p-1 rounded text-slate-500">
+              <option value="">Select availability</option>
+              <option value="Immediately">Immediately</option>
+              <option value="1 week">1 week</option>
+              <option value="2 weeks">2 weeks</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="mb-4 flex justify-between">
+            <label class="block text-gray-600 p-1">Salary Expectation:</label>
+            <input type="text" class="w-[50%] border border-gray-300 mx-2 p-1 rounded text-slate-500" />
+          </div>
+
+          <div class="mb-4 flex justify-between">
+            <label class="block text-gray-600 p-1">Referred by:</label>
+            <input type="text" class="w-[50%] border border-gray-300 mx-2 p-1 rounded" />
           </div>
         </div>
       </div>
 
-      <div class="grid grid-rows-3 bg-white p-4">
+      <div class="grid grid-cols-2 gap-4 bg-slate-100 p-4">
+        <div class="w-[80%] mx-auto my-0">
+          <div class="mb-4 flex justify-between">
+            <label class="block text-gray-600 p-1">Github:</label>
+            <input type="text" class="w-[60%] border border-gray-300 mx-2 p-1 rounded" />
+          </div>
 
-      </div>
-      <div class="grid grid-rows-2 bg-white p-4">
+          <div class="mb-4 flex justify-between">
+            <label class="block text-gray-600 p-1">LinkedIn:</label>
+            <input type="text" class="w-[60%] border border-gray-300 mx-2 p-1 rounded" />
+          </div>
+        </div>
 
+        <div class="w-[80%] mx-auto my-0">
+          <div class="mb-4 flex justify-between">
+            <label class="block text-gray-600 p-1">Personal Website:</label>
+            <input type="text" class="w-[60%] border border-gray-300 mx-2 p-1 rounded" />
+          </div>
+        </div>
       </div>
+
     </main>
   </div>
 </template>
