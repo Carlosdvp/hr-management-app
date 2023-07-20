@@ -53,5 +53,5 @@
 11. Add the following features
     - an AddUser button and Form
     - the From will include the details needed to create a user
-    - it will use the same api endpoint as the Registration page
-    - edit the layout of the Dashboard as needed
+    - it will use the /register endpoint
+    - it will have a button to add a user and one to cancel and exit the form
