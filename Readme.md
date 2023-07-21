@@ -55,3 +55,11 @@
     - the From will include the details needed to create a user
     - it will use the /register endpoint
     - it will have a button to add a user and one to cancel and exit the form
+
+12. Profile page component
+    - add the fields and their labels
+    - this will be all the data points that might be used down the line
+    - username should list the first and last names of the logged in user
+    - the email should be the logged in user's email
+    - same for the mobile number and the create and last modified elements
+    - fields in the profile form should be pre-populated if the respective data is present in the databse

@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { Ref, ref } from 'vue';
+import { useUserDataStore } from '@/store/users';
 
 const router = useRouter();
 const showDropDown: Ref<boolean> = ref(false);
+const { clearLoggedInUser } = useUserDataStore();
 
 const toggleDrop = (): void => {
   showDropDown.value = !showDropDown.value;
@@ -22,6 +24,8 @@ const logout =async () => {
 
   if (apiCall.success) {
     localStorage.removeItem('token')
+    clearLoggedInUser();
+
     router.push('/login')
   } else {
     alert(apiCall.message)

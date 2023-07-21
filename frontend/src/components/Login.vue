@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { Ref, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useUserDataStore } from '@/store/users'
 
 const router = useRouter();
+const { fetchUsers, setLoggedInUser }  = useUserDataStore();
 
 const email: Ref<string> = ref<string>('')
 const password: Ref<string> = ref<string>('')
@@ -11,6 +13,8 @@ const userLogin = async () => {
   if (!email.value || !password.value) {
     return alert('Please enter username and password');
   }
+
+  await fetchUsers();
 
   const sendUserData = await fetch('http://localhost:3330/api/auth/login', {
     method: 'POST',
@@ -24,7 +28,9 @@ const userLogin = async () => {
   }).then(sendUserData => sendUserData.json())
 
   if (sendUserData.success) {
-    localStorage.setItem('token', sendUserData.token)
+    localStorage.setItem('token', sendUserData.token);
+    setLoggedInUser(sendUserData);
+    
     router.push('/dashboard')
   } else {
     alert(sendUserData.message);

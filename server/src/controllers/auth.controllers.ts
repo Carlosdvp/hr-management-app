@@ -54,10 +54,17 @@ export const authController = {
         session_duration_minutes: 60
       })
 
+      const user = await prisma.user.findUnique({
+        where: {
+          email: email,
+        }
+      })
+
       return res.json({
         success: true,
         message: 'User logged in successfully',
         token: payload.session_token,
+        user: user,
       })
     } catch (error) {
       res.json({
