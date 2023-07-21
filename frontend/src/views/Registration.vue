@@ -2,12 +2,14 @@
 import Navbar from '@/components/Navbar.vue';
 import router from '@/router';
 import { Ref, ref } from 'vue'
+import { useUserDataStore } from '@/store/users'
 
 const firstName: Ref<string> = ref<string>('')
 const lastName: Ref<string> = ref<string>('')
 const email: Ref<string> = ref<string>('')
 const password: Ref<string> = ref<string>('')
 const confirmPassword: Ref<string> = ref<string>('')
+const { fetchUsers, setLoggedInUser }  = useUserDataStore();
 
 const registerNewUser = async () => {
   if (!firstName.value || !lastName.value || !email.value || !password.value || !confirmPassword.value) {
@@ -17,6 +19,8 @@ const registerNewUser = async () => {
   if (password.value !== confirmPassword.value) {
     return alert('Passwords do not match');
   }
+
+  await fetchUsers();
 
   const sendUserData = await fetch('http://localhost:3330/api/auth/register', {
     method: 'POST',
@@ -33,6 +37,8 @@ const registerNewUser = async () => {
 
   if (sendUserData.success) {
     localStorage.setItem('token', sendUserData.token)
+    setLoggedInUser(sendUserData.user)
+
     router.push('/')
   } else {
     alert(sendUserData.message);
@@ -69,7 +75,7 @@ const registerNewUser = async () => {
           type="text"
           name="firstName" 
           v-model="firstName"
-          placeholder="Fulanito"
+          placeholder="name"
           class="h-[2rem] p-2 border border-blue-400 focus:outline-none focus:border-red-800 focus:ring-red-800" />
       </label>
       <label class="block mb-6">
@@ -78,7 +84,7 @@ const registerNewUser = async () => {
           type="text"
           name="lastName" 
           v-model="lastName"
-          placeholder="de Tal"
+          placeholder="last name"
           class="h-[2rem] p-2 border border-blue-400 focus:outline-none focus:border-red-800 focus:ring-red-800" />
       </label>
       <label class="block mb-6">

@@ -11,7 +11,7 @@ const toggleDrop = (): void => {
   showDropDown.value = !showDropDown.value;
 }
 
-const logout =async () => {
+const logout = async () => {
   const apiCall = await fetch('http://localhost:3330/api/auth/logout', {
     method: 'POST',
     headers: {

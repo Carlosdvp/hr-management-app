@@ -29,8 +29,8 @@ const userLogin = async () => {
 
   if (sendUserData.success) {
     localStorage.setItem('token', sendUserData.token);
-    setLoggedInUser(sendUserData);
-    
+    setLoggedInUser(sendUserData.user);
+
     router.push('/dashboard')
   } else {
     alert(sendUserData.message);

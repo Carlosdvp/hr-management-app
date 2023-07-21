@@ -63,3 +63,10 @@
     - the email should be the logged in user's email
     - same for the mobile number and the create and last modified elements
     - fields in the profile form should be pre-populated if the respective data is present in the databse
+
+13. Before moving ahead, we need to add Pinia to handle the application's state
+    - install Pinia
+    - create the Users store
+    - add the actions we need
+    - update the Login component and the logout functionality
+    - update the registration component as well.

@@ -59,6 +59,7 @@ const registerNewUser = async () => {
     </div>
     <div>
       <form
+        @submit.prevent
         class="flex-1 block mx-auto my-0 bg-slate-600 text-black py-6 px-6 text-left">
         <label class="block mb-6">
           <span class="block text-base font-medium mb-4 text-white">First name</span>
@@ -97,12 +98,12 @@ const registerNewUser = async () => {
             class="h-[2rem] pl-2 border border-blue-400 focus:outline-none focus:border-red-800 focus:ring-red-800" />
         </label>
         <input
-          type="submit"
+          type="button"
           value="Add User"
           @click="registerNewUser"
           class="w-[100%] border mx-auto my-0 border-white px-4 py-1 cursor-pointer font-semibold transition duration-200 ease-linear text-white hover:bg-white hover:text-black" />
         <input
-          type="submit"
+          type="button"
           value="Cancel"
           @click="toggleUserPanel"
           class="w-[100%] border mx-auto my-0 border-white px-4 py-1 mt-4 cursor-pointer font-semibold transition duration-200 ease-linear text-white hover:bg-white hover:text-black" />

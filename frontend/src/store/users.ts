@@ -23,12 +23,12 @@ export const useUserDataStore = defineStore('users', {
   },
   getters: {},
   actions: {
-    async fetchUsers() {
+    async fetchUsers(): Promise<void> {
       try {
         const response = await fetch('http://localhost:3330/api/users');
         const usersData = await response.json();
+
         this.users = usersData;
-        console.log('pinia store', usersData)
       } catch (error) {
         console.error(error)
       }
@@ -36,7 +36,7 @@ export const useUserDataStore = defineStore('users', {
     setLoggedInUser(user: UserData | null) {
       this.loggedInUser = user;
     },
-    clearLoggedInUser() {
+    clearLoggedInUser(): void {
       this.loggedInUser = null;
     }
   }
