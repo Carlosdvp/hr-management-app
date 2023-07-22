@@ -2,6 +2,7 @@ import { RouteRecordRaw, createRouter, createWebHistory } from "vue-router";
 import Home from '@/views/Home.vue';
 import Dashboard from '@/views/Dashboard.vue';
 import ProfilePage from '@/views/ProfilePage.vue';
+import { useUserDataStore } from "@/store/users";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -42,16 +43,18 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, _from, next) => {
+  const { loggedInUser } = useUserDataStore();
+  
   if (to.matched.some(record => record.meta.requiresAuth)) {
     // Authentication check
     const token = localStorage.getItem('token')
 
-    if (token) {
+    if (token && loggedInUser) {
       // check if token is valid
       return next()
     }
-    return next('/login');
+    return next('/');
   }
 
   next()

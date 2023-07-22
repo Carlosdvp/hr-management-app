@@ -26,7 +26,7 @@ const logout = async () => {
     localStorage.removeItem('token')
     clearLoggedInUser();
 
-    router.push('/login')
+    router.push('/')
   } else {
     alert(apiCall.message)
   }
