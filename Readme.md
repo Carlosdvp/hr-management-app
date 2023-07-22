@@ -70,3 +70,8 @@
     - add the actions we need
     - update the Login component and the logout functionality
     - update the registration component as well.
+
+14. Continue work on the Profile page
+    - replace the UserName placeholder in the UserMenuDropdown with the logged in user's name
+    - replace placeholder data in the profile page header
+    - pre-populate the profile information with the available data for the logged in user

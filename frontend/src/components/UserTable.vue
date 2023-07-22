@@ -7,10 +7,11 @@ import AddUser from './AddUser.vue';
 
 const users = ref<User[]>([]);
 const headerItems = ref<string[]>(['Id', 'Email', 'First Name', 'Last Name', 'Password']);
+let API_URL = 'http://localhost:3330/api'
 
 const getUsers = async (): Promise<void> => {
   try {
-    const response = await axios.get<User[]>('http://localhost:3330/api/users');
+    const response = await axios.get<User[]>(`${API_URL}/users`);
     users.value = response.data;
   } catch (error) {
     console.error(error)
@@ -20,7 +21,7 @@ const getUsers = async (): Promise<void> => {
 
   setInterval(async () => {
     try {
-      const response = await axios.get<User[]>('http://localhost:3330/api/users');
+      const response = await axios.get<User[]>(`${API_URL}/users`);
       users.value = response.data;
     } catch (error) {
       console.error(error)
