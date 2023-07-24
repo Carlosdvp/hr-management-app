@@ -75,3 +75,8 @@
     - replace the UserName placeholder in the UserMenuDropdown with the logged in user's name
     - replace placeholder data in the profile page header
     - pre-populate the profile information with the available data for the logged in user
+
+15. Hash password on Registration
+    - saved password hash in database
+    - use bcrypt to handle this task
+    - endpoint to edit/update: /login and /register
