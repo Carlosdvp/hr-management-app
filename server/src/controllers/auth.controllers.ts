@@ -17,7 +17,7 @@ export const authController = {
       const payload = await client.passwords.create({
         email: userData.email,
         password: userData.password,
-        session_duration_minutes: 60
+        session_duration_minutes: 480
       });
 
       // create the user in the DB using prisma
@@ -51,7 +51,7 @@ export const authController = {
       const payload = await client.passwords.authenticate({
         email,
         password,
-        session_duration_minutes: 60
+        session_duration_minutes: 480
       })
 
       const user = await prisma.user.findUnique({
@@ -103,6 +103,7 @@ export const authController = {
         message: 'Successfully logged out'
       })
     } catch (error) {
+      console.error('Logout error', error);
       res.json({
         success: false,
         message: 'Someting went wrong, unable to log out.',

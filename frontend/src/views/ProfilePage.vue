@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import Navbar from '@/components/Navbar.vue';
 import { useUserDataStore } from '@/store/users';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 const { loggedInUser } = useUserDataStore();
+
+const selectedDeveloper = ref('');
+const selectedDeveloperType = computed(() => selectedDeveloper.value + ' Developer')
 
 // Create a computed property to get and set the first name
 const firstName = computed({
@@ -63,7 +66,7 @@ const updateEmail = (event: InputEvent) => {
           <h1 class="px-3 py-1 font-semibold text-lg">
             {{ loggedInUser?.firstName }} {{ loggedInUser?.lastName }}
           </h1>
-          <p class="text-sm text-gray-600 pb-2">Full Stack Developer</p>
+          <p class="text-sm text-gray-600 pb-2">{{ selectedDeveloperType }}</p>
         </div>
       </div>
       <div class="flex items-center">
@@ -152,11 +155,13 @@ const updateEmail = (event: InputEvent) => {
         <div class="w-[80%] mx-auto my-0">
           <div class="mb-4 flex justify-between">
             <label class="mr-2 text-gray-600 p-1">Developer Type:</label>
-            <select class="w-[60%] border border-gray-300 px-2 p-1 text-slate-500 rounded">
+            <select
+              class="w-[60%] border border-gray-300 px-2 p-1 text-slate-500 rounded"
+              v-model="selectedDeveloper">
               <option value="">Select a developer type</option>
-              <option value="1">Frontend</option>
-              <option value="2">Backend</option>
-              <option value="3">Full stack</option>
+              <option value="Frontend">Frontend</option>
+              <option value="Backend">Backend</option>
+              <option value="Full Stack">Full Stack</option>
             </select>
           </div>
 
