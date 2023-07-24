@@ -80,3 +80,8 @@
     - saved password hash in database
     - use bcrypt to handle this task
     - endpoint to edit/update: /login and /register
+
+16. Add the Settings Page
+    - user should be able to reset password 
+    - user should be able to change email
+    - it should have an 'update' button that makes an api call

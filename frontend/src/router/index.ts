@@ -2,6 +2,7 @@ import { RouteRecordRaw, createRouter, createWebHistory } from "vue-router";
 import Home from '@/views/Home.vue';
 import Dashboard from '@/views/Dashboard.vue';
 import ProfilePage from '@/views/ProfilePage.vue';
+import SettingsPage from '@/views/SettingsPage.vue';
 import { useUserDataStore } from "@/store/users";
 
 const routes: Array<RouteRecordRaw> = [
@@ -32,6 +33,14 @@ const routes: Array<RouteRecordRaw> = [
     path: '/profile-page',
     name: 'profile',
     component: ProfilePage,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: '/settings-page',
+    name: 'settings',
+    component: SettingsPage,
     meta: {
       requiresAuth: true
     }

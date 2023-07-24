@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../services/prisma";
+import bcrypt from "bcrypt";
 
 export const userController = {
   async getUsers(req: Request, res: Response) {
@@ -33,18 +34,64 @@ export const userController = {
   },
   async updateUser(req: Request, res: Response) {
     const paramEmail: string = req.params.email;
-    const userName: string = req.body.firstName;
+    const newEmail: string = req.body.email;
+    const newPassword: string = req.body.password;
 
-    const updatedUser = await prisma.user.update({
-      data: {
-        firstName: userName,
-      },
-      where: {
-        email: paramEmail,
-      },
-    });
+    try {
+      let updatedUser;
 
-    return res.json({ updatedUser: updatedUser });
+      if (newEmail && newPassword) {
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        updatedUser = await prisma.user.update({
+          data: {
+            email: newEmail,
+            password: hashedPassword,
+          },
+          where: {
+            email: paramEmail,
+          },
+        });
+      } else if(newEmail) {
+        updatedUser = await prisma.user.update({
+          data: {
+            email: newEmail,
+          },
+          where: {
+            email: paramEmail,
+          },
+        });
+      } else if (newPassword) {
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        updatedUser = await prisma.user.update({
+          data: {
+            password: hashedPassword,
+          },
+          where: {
+            email: paramEmail,
+          },
+        });
+      } else {
+        return res.status(400).json({ 
+          success: false, 
+          message: "Please provide email or password to update"
+        });
+      }
+
+      return res.json({ 
+        success: true, 
+        message: "User updated successfully", 
+        updatedUser: updatedUser
+      });
+    } catch (error) {
+      console.error('Update user error:', error);
+      
+      return res.status(500).json({ 
+        success: false, 
+        message: "Something went wrong, unable to update user."
+      });
+    }
   },
   async deleteUser(req: Request, res: Response) {
     const paramEmail: string = req.params.email;
