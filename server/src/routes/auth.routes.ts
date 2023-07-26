@@ -5,7 +5,6 @@ const routes = Router();
 
 routes.post("/register", authController.registerNewUser);
 routes.post("/login", authController.userLogin);
-routes.post("/authenticate", authController.authenticateToken);
 routes.post("/logout", authController.userLogout);
 
 export default routes;

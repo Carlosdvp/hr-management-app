@@ -1,13 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../services/prisma";
-import { envs, Client } from "stytch";
 import bcrypt from 'bcrypt';
-
-const client = new Client({
-  project_id: process.env.PROJECT_ID,
-  secret: process.env.STYTCH_API_SECRET,
-  env: envs.test,
-});
 
 const salt = 10;
 
@@ -18,13 +11,6 @@ export const authController = {
     const hashedPassword = await bcrypt.hash(userData.password, salt);
 
     try {
-      // create the new user in stytch
-      const payload = await client.passwords.create({
-        email: userData.email,
-        password: userData.password,
-        session_duration_minutes: 480
-      });
-
       // create the user in the DB using prisma
       const user = await prisma.user.create({
         data: {
@@ -38,7 +24,6 @@ export const authController = {
       return res.json({
         success: true,
         message: 'User created successfully',
-        token: payload.session_token,
         user: user
       })
     } catch (error) {
@@ -53,12 +38,6 @@ export const authController = {
     const { email, password } = req.body;
 
     try {
-      const payload = await client.passwords.authenticate({
-        email,
-        password,
-        session_duration_minutes: 480
-      })
-
       const user = await prisma.user.findUnique({
         where: {
           email: email,
@@ -72,19 +51,18 @@ export const authController = {
         })
       }
 
-      const isPasswordValid = await bcrypt.compare(password, user.password);
+      // const isPasswordValid = await bcrypt.compare(password, user.password);
 
-      if (!isPasswordValid) {
-        return res.json({
-          success: false,
-          message: 'Email or password incorrect.'
-        })
-      }
+      // if (!isPasswordValid) {
+      //   return res.json({
+      //     success: false,
+      //     message: 'Email or password incorrect.'
+      //   })
+      // }
 
       return res.json({
         success: true,
         message: 'User logged in successfully',
-        token: payload.session_token,
         user: user,
       })
     } catch (error) {
@@ -95,36 +73,35 @@ export const authController = {
       })
     }
   },
-  async authenticateToken(req: Request, res: Response) {
-    const { session_token } = req.body;
+  // async authenticateToken(req: Request, res: Response) {
+  //   const { session_token } = req.body;
 
-    try {
-      await client.sessions.authenticate({ session_token })
+  //   try {
+  //     await client.sessions.authenticate({ session_token })
 
-      return res.json({
-        success: true,
-        message: 'Token is valid'
-      })
-    } catch (error) {
-      res.json({
-        success: false,
-        message: 'Invalid session token.',
-        error: error
-      })
-    }
-  },
+  //     return res.json({
+  //       success: true,
+  //       message: 'Token is valid'
+  //     })
+  //   } catch (error) {
+  //     res.json({
+  //       success: false,
+  //       message: 'Invalid session token.',
+  //       error: error
+  //     })
+  //   }
+  // },
   async userLogout(req: Request, res: Response) {
     const { session_token } = req.body;
 
     try {
-      await client.sessions.revoke({ session_token })
 
       return res.json({
         success: true,
         message: 'Successfully logged out'
       })
     } catch (error) {
-      console.error('Logout error', error);
+
       res.json({
         success: false,
         message: 'Someting went wrong, unable to log out.',

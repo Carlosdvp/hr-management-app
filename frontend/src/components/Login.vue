@@ -27,6 +27,8 @@ const userLogin = async () => {
     })
   }).then(sendUserData => sendUserData.json())
 
+  console.log('Login', sendUserData)
+
   if (sendUserData.success) {
     localStorage.setItem('token', sendUserData.token);
     setLoggedInUser(sendUserData.user);
@@ -82,6 +84,13 @@ const userLogin = async () => {
         type="submit"
         value="Login"
         class="border border-white px-4 py-1 cursor-pointer font-bold transition duration-200 ease-linear hover:bg-white" />
+      <p class="p-8 pb-12 mt-4">Forgot your password? 
+        <router-link
+          to="/forgot-password"
+          class="font-bold text-blue-500 hover:underline">
+          Reset here
+        </router-link>
+      </p>
     </form>
 
     <footer

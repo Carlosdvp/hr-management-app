@@ -85,3 +85,19 @@
     - user should be able to reset password 
     - user should be able to change email
     - it should have an 'update' button that makes an api call
+
+Side Quest 1
+    - stytch is causing too many hard to debug issues so I am swotcing to Firebase Authentication
+    - 
+
+
+----------------------------------------------------------------------------------------
+
+## Test Users
+
+"email": "hecate@gmail.com",
+"password": "hecatesupertits$11"
+
+ana@gmail.com
+anaBanana
+
