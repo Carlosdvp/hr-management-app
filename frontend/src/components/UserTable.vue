@@ -2,8 +2,11 @@
 import { Ref, ref } from 'vue';
 import axios from 'axios';
 import { User } from '@/types/User';
+import { useUserDataStore } from '@/store/users';
 import SearchBar from './SearchBar.vue';
 import AddUser from './AddUser.vue';
+
+const userStore = useUserDataStore();
 
 const headerItems = ref<string[]>(['', 'Id', 'Email', 'First Name', 'Last Name']);
 let API_URL = 'http://localhost:3330/api'
@@ -34,6 +37,8 @@ const getUsers = async (): Promise<void> => {
 const deleteUser = async () => {
   const selectedUsers = users.value.filter((user) => user.isSelected);
 
+  console.log('UserTable component - selectedUsers', selectedUsers)
+
   if (selectedUsers.length === 0) {
     console.log('No users selected for deletion');
     
@@ -48,10 +53,12 @@ const deleteUser = async () => {
       }
     }).then((response) => response.json());
 
-    if (result.success) {
+    if (user) {
       console.log(`User: ${result.deletedUser.email}, deleted successfully`);
+
+      userStore.clearDeletedUser(user);
     } else {
-      console.log(result.message);
+      console.log(deleteUser || 'Failed to delete user');
     }
   }
 }

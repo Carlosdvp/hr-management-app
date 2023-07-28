@@ -1,3 +1,4 @@
+// import { User } from '@prisma/client';
 import { defineStore } from 'pinia'
 
 interface State {
@@ -10,8 +11,9 @@ interface UserData {
   firstName: string
   lastName: string
   email: string
-  password: boolean
+  password: string
   createdAt: Date
+  isSelected: boolean
 }
 
 export const useUserDataStore = defineStore('users', {
@@ -33,11 +35,20 @@ export const useUserDataStore = defineStore('users', {
         console.error(error)
       }
     },
-    setLoggedInUser(user: UserData | null) {
+    setLoggedInUser(user: UserData | null):void {
       this.loggedInUser = user;
     },
     clearLoggedInUser(): void {
       this.loggedInUser = null;
-    }
+    },
+    clearDeletedUser(user: UserData | null): void {
+      if (user) {
+        const deletedUserIndex = this.users.findIndex((deletedUser) => deletedUser.id === user.id);
+
+        if (deletedUserIndex !== -1) {
+          this.users.splice(deletedUserIndex, 1);
+        }
+      }
+    },
   }
 })
