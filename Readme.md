@@ -102,6 +102,8 @@ Side Quest 1
 
 ## Test Users
 
+capitan@gmail.com
+capitanfuturo$11
 
 
 ## Auth0 Information

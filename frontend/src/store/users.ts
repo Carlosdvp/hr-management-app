@@ -1,4 +1,3 @@
-// import { User } from '@prisma/client';
 import { defineStore } from 'pinia'
 
 interface State {
@@ -7,12 +6,12 @@ interface State {
 }
 
 interface UserData {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-  password: string
-  createdAt: Date
+  id:         string
+  firstName:  string
+  lastName:   string
+  email:      string
+  password:   string
+  createdAt:  Date
   isSelected: boolean
 }
 

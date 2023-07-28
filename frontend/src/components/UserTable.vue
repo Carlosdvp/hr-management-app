@@ -9,9 +9,9 @@ import AddUser from './AddUser.vue';
 const userStore = useUserDataStore();
 
 const headerItems = ref<string[]>(['', 'Id', 'Email', 'First Name', 'Last Name']);
-let API_URL = 'http://localhost:3330/api'
-
 const users: Ref<User[]> = ref<User[]>([]);
+
+let API_URL = 'http://localhost:3330/api'
 
 const getUsers = async (): Promise<void> => {
   try {
@@ -52,10 +52,10 @@ const deleteUser = async () => {
     if (user) {
       console.log(`User: ${result.deletedUser.email}, deleted successfully`);
       userStore.clearDeletedUser(user);
-      
+
       await getUsers();
     } else {
-      console.log(deleteUser || 'Failed to delete user');
+      console.log(selectedUsers || 'Failed to delete user');
     }
   }
 }
@@ -91,14 +91,14 @@ getUsers();
           v-for="user in users"
           :key="user.id" 
           class="bg-slate-200 grid gap-x-1 text-center user-grid border border-slate-400 my-1 py-1">
-          <input 
+          <input
+            class="w-12"
             type="checkbox"
             v-model="user.isSelected" />
           <p class="">{{ user.id.substring(0,9) + '...' }}</p>
           <p class="">{{ user.email }}</p>
           <p class="">{{ user.firstName }}</p>
           <p class="">{{ user.lastName }}</p>
-          <!-- <p class="">{{ user.password ? true : false }}</p> -->
         </div>
       </div>
       <button
@@ -110,6 +110,7 @@ getUsers();
 
 <style scoped>
 .user-grid {
-  grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+  grid-template-columns: 2rem repeat(4, 1fr);
+
 }
 </style>
