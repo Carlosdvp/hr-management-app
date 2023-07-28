@@ -54,7 +54,6 @@ const updateSettings = async () => {
     <header class="p-8">
       <h1 class="text-xl p-4 my-4 border border-white font-bold">HR Management App</h1>
       <h2 class="text-3xl py-4 mb-4">Settings</h2>
-      <p class="font-medium">Update your account settings.</p>
     </header>
 
     <form 

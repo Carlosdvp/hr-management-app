@@ -87,8 +87,15 @@
     - it should have an 'update' button that makes an api call
 
 Side Quest 1
-    - stytch is causing too many hard to debug issues so I am swotcing to Firebase Authentication
-    - 
+    - stytch is causing too many hard to debug issues so I am removing it for now
+
+17. Add Delete button to use the delete user endpoint
+    - each user should have a checkbox
+    - you need to supply an email in the params to delete a user
+    - for now it is possible to delete only one user at a time
+
+
+
 
 
 ----------------------------------------------------------------------------------------
@@ -100,4 +107,19 @@ Side Quest 1
 
 ana@gmail.com
 anaBanana
+
+
+## Auth0 Information
+
+Name:
+HR Management App
+
+Domain:
+dev-tvr0olbu2jtnq2e1.us.auth0.com
+
+ClientID:
+G973zXMjkQtuOV3Snpl2jn1V8nTEJl2v
+
+Client Secret:
+Yn1J0VsfJvCiV76psfrnTV0lXNLUcjOWE0LRZqh5exSctYhZLnpDjBB8cXEQi7il
 

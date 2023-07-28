@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { Ref, ref } from 'vue';
 import axios from 'axios';
 import { User } from '@/types/User';
 import SearchBar from './SearchBar.vue';
 import AddUser from './AddUser.vue';
 
-const users = ref<User[]>([]);
-const headerItems = ref<string[]>(['Id', 'Email', 'First Name', 'Last Name', 'Password']);
+const headerItems = ref<string[]>(['', 'Id', 'Email', 'First Name', 'Last Name']);
 let API_URL = 'http://localhost:3330/api'
+
+const users: Ref<User[]> = ref<User[]>([]);
+// const email: Ref<string> = ref<string>('');
 
 const getUsers = async (): Promise<void> => {
   try {
@@ -27,6 +29,31 @@ const getUsers = async (): Promise<void> => {
       console.error(error)
     }
   }, dbPollingInterval);
+}
+
+const deleteUser = async () => {
+  const selectedUsers = users.value.filter((user) => user.isSelected);
+
+  if (selectedUsers.length === 0) {
+    console.log('No users selected for deletion');
+    
+    return;
+  }
+
+  for (let user of selectedUsers) {
+    const result = await fetch(`${API_URL}/users/${user.email}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }).then((response) => response.json());
+
+    if (result.success) {
+      console.log(`User: ${result.deletedUser.email}, deleted successfully`);
+    } else {
+      console.log(result.message);
+    }
+  }
 }
 
 getUsers();
@@ -55,19 +82,24 @@ getUsers();
 
       <p v-if="users.length === 0">No users found</p>
 
-      <div v-else>
+      <div v-else class="pb-4">
         <div 
           v-for="user in users"
           :key="user.id" 
-          class="bg-slate-200 grid gap-x-1 text-center user-grid border border-slate-400 my-1 py-1"
-        >
+          class="bg-slate-200 grid gap-x-1 text-center user-grid border border-slate-400 my-1 py-1">
+          <input 
+            type="checkbox"
+            v-model="user.isSelected" />
           <p class="">{{ user.id.substring(0,9) + '...' }}</p>
           <p class="">{{ user.email }}</p>
           <p class="">{{ user.firstName }}</p>
           <p class="">{{ user.lastName }}</p>
-          <p class="">{{ user.password ? true : false }}</p>
+          <!-- <p class="">{{ user.password ? true : false }}</p> -->
         </div>
       </div>
+      <button
+        class="bg-slate-500 text-white font-semibold p-2 border border-slate-900 transsition duration-200 ease-linear hover:bg-white hover:text-black cursor-pointer"
+        @click="deleteUser">Delete Selected Users</button>
     </div>
   </div>
 </template>
