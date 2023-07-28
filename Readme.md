@@ -102,11 +102,6 @@ Side Quest 1
 
 ## Test Users
 
-"email": "hecate@gmail.com",
-"password": "hecatesupertits$11"
-
-ana@gmail.com
-anaBanana
 
 
 ## Auth0 Information

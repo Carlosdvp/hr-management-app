@@ -12,7 +12,6 @@ const headerItems = ref<string[]>(['', 'Id', 'Email', 'First Name', 'Last Name']
 let API_URL = 'http://localhost:3330/api'
 
 const users: Ref<User[]> = ref<User[]>([]);
-// const email: Ref<string> = ref<string>('');
 
 const getUsers = async (): Promise<void> => {
   try {
@@ -35,13 +34,10 @@ const getUsers = async (): Promise<void> => {
 }
 
 const deleteUser = async () => {
+
   const selectedUsers = users.value.filter((user) => user.isSelected);
-
-  console.log('UserTable component - selectedUsers', selectedUsers)
-
   if (selectedUsers.length === 0) {
     console.log('No users selected for deletion');
-    
     return;
   }
 
@@ -55,8 +51,9 @@ const deleteUser = async () => {
 
     if (user) {
       console.log(`User: ${result.deletedUser.email}, deleted successfully`);
-
       userStore.clearDeletedUser(user);
+      
+      await getUsers();
     } else {
       console.log(deleteUser || 'Failed to delete user');
     }
