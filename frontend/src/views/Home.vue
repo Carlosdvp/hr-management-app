@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Navbar from '@/components/Navbar.vue';
+import LogoutButton from '@/components/LogoutButton.vue';
 import { useRouter } from 'vue-router';
 import { useUserDataStore } from '@/store/users';
 
@@ -26,23 +27,19 @@ const redirectToRegister = () => {
   </div>
 
   <div class="w-[100vw] bg-slate-600 h-[30%] text-center font-bold flex justify-center items-center">
-    <button
-      v-if="!loggedInUser"
-      @click="redirectToLogin"
-      class="border mx-2 border-white px-4 py-1 cursor-pointer font-semibold transition duration-200 ease-linear text-white hover:bg-white hover:text-black">
-      Login
-    </button>
-    <button
-      v-if="!loggedInUser"
-      @click="redirectToRegister"
-      class="border mx-2 border-white px-4 py-1 cursor-pointer font-semibold transition duration-200 ease-linear text-white hover:bg-white hover:text-black">
-      Register
-    </button>
-    <!-- <button
-      v-if="userLoggedIn"
-      @click="logout"
-      class="border mx-2 border-white px-4 py-1 cursor-pointer font-semibold transition duration-200 ease-linear text-white hover:bg-white hover:text-black">
-      Logout
-    </button> -->
+    <div v-if="!loggedInUser">
+      <button
+        @click="redirectToLogin"
+        class="border mx-2 border-white px-4 py-1 cursor-pointer font-semibold transition duration-200 ease-linear text-white hover:bg-white hover:text-black">
+        Login
+      </button>
+      <button
+        @click="redirectToRegister"
+        class="border mx-2 border-white px-4 py-1 cursor-pointer font-semibold transition duration-200 ease-linear text-white hover:bg-white hover:text-black">
+        Register
+      </button>
+    </div>
+
+    <LogoutButton v-if="loggedInUser" />
   </div>
 </template>

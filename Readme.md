@@ -96,7 +96,14 @@ Side Quest 1
     - User Table is refreshed each time a suer is deleted to display the updated list of users
     - user is also delete from the database and removed from the users store
 
-18. 
+18. Add a Logout button to the Home page
+    - it should be displayed when loggedInUser is true
+    - when clicked the user is logged out and redirected to the Login page
+
+19. Refactor
+    - create a utils folder and a new auth.ts file
+    - move the logout function there
+    - import the logout method in the components that are currently using it.
 
 
 
@@ -107,12 +114,11 @@ Side Quest 1
 capitan@gmail.com
 capitanfuturo$11
 
-hercules
+hercules@gmail.com
 hercules$11
 
-lilith
-lilithtits$11
-
+diamond@gmail.com
+diamond$11
 
 ## Auth0 Information
 
