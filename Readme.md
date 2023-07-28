@@ -92,9 +92,11 @@ Side Quest 1
 17. Add Delete button to use the delete user endpoint
     - each user should have a checkbox
     - you need to supply an email in the params to delete a user
-    - for now it is possible to delete only one user at a time
+    - now we an delete one user or multiple users
+    - User Table is refreshed each time a suer is deleted to display the updated list of users
+    - user is also delete from the database and removed from the users store
 
-
+18. 
 
 
 
@@ -104,6 +106,12 @@ Side Quest 1
 
 capitan@gmail.com
 capitanfuturo$11
+
+hercules
+hercules$11
+
+lilith
+lilithtits$11
 
 
 ## Auth0 Information

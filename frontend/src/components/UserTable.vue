@@ -1,48 +1,35 @@
 <script setup lang="ts">
 import { Ref, ref } from 'vue';
-import axios from 'axios';
 import { User } from '@/types/User';
 import { useUserDataStore } from '@/store/users';
 import SearchBar from './SearchBar.vue';
 import AddUser from './AddUser.vue';
 
-const userStore = useUserDataStore();
+const { clearDeletedUser, fetchUsers } = useUserDataStore();
 
-const headerItems = ref<string[]>(['', 'Id', 'Email', 'First Name', 'Last Name']);
+const headerItems: Ref<string[]> = ref<string[]>(['', 'Id', 'Email', 'First Name', 'Last Name']);
 const users: Ref<User[]> = ref<User[]>([]);
 
-let API_URL = 'http://localhost:3330/api'
-
 const getUsers = async (): Promise<void> => {
-  try {
-    const response = await axios.get<User[]>(`${API_URL}/users`);
-    users.value = response.data;
-  } catch (error) {
-    console.error(error)
-  }
-
   const dbPollingInterval = 60 *60 *1000; // 1 hour
 
+  users.value = await fetchUsers();
+
   setInterval(async () => {
-    try {
-      const response = await axios.get<User[]>(`${API_URL}/users`);
-      users.value = response.data;
-    } catch (error) {
-      console.error(error)
-    }
+    users.value = await fetchUsers();
   }, dbPollingInterval);
 }
 
 const deleteUser = async () => {
-
   const selectedUsers = users.value.filter((user) => user.isSelected);
+
   if (selectedUsers.length === 0) {
     console.log('No users selected for deletion');
     return;
   }
 
   for (let user of selectedUsers) {
-    const result = await fetch(`${API_URL}/users/${user.email}`, {
+    const result = await fetch(`http://localhost:3330/api/users/${user.email}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -51,7 +38,7 @@ const deleteUser = async () => {
 
     if (user) {
       console.log(`User: ${result.deletedUser.email}, deleted successfully`);
-      userStore.clearDeletedUser(user);
+      clearDeletedUser(user);
 
       await getUsers();
     } else {

@@ -24,14 +24,16 @@ export const useUserDataStore = defineStore('users', {
   },
   getters: {},
   actions: {
-    async fetchUsers(): Promise<void> {
+    async fetchUsers(): Promise<UserData[]> {
       try {
         const response = await fetch('http://localhost:3330/api/users');
         const usersData = await response.json();
-
         this.users = usersData;
+
+        return usersData;
       } catch (error) {
-        console.error(error)
+        console.error(error);
+        return [];
       }
     },
     setLoggedInUser(user: UserData | null):void {
