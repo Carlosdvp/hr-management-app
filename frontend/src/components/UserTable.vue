@@ -98,6 +98,5 @@ getUsers();
 <style scoped>
 .user-grid {
   grid-template-columns: 2rem repeat(4, 1fr);
-
 }
 </style>

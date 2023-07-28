@@ -16,7 +16,15 @@ const redirectToRegister = () => {
 </script>
 
 <template>
-  <Navbar />
+  <div class="flex w-full justify-between bg-slate-700">
+    <Navbar />
+    <div class="h-[50px] flex items-center px-16 z-10 text-white">
+      <p class="font-semibold text-xl">
+        {{ loggedInUser?.firstName }} {{ loggedInUser?.lastName }}
+      </p>
+    </div>
+  </div>
+
   <div class="w-[100vw] bg-slate-600 h-[30%] text-center font-bold flex justify-center items-center">
     <button
       v-if="!loggedInUser"
