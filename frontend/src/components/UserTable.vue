@@ -12,7 +12,6 @@ const users: Ref<User[]> = ref<User[]>([]);
 
 const getUsers = async (): Promise<void> => {
   const dbPollingInterval = 60 *60 *1000; // 1 hour
-
   users.value = await fetchUsers();
 
   setInterval(async () => {
@@ -22,7 +21,6 @@ const getUsers = async (): Promise<void> => {
 
 const deleteUser = async () => {
   const selectedUsers = users.value.filter((user) => user.isSelected);
-
   if (selectedUsers.length === 0) {
     console.log('No users selected for deletion');
     return;
@@ -39,7 +37,6 @@ const deleteUser = async () => {
     if (user) {
       console.log(`User: ${result.deletedUser.email}, deleted successfully`);
       clearDeletedUser(user);
-
       await getUsers();
     } else {
       console.log(selectedUsers || 'Failed to delete user');
