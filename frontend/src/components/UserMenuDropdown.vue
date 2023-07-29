@@ -1,35 +1,19 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
+import { Router, useRouter } from 'vue-router';
 import { Ref, ref } from 'vue';
 import { useUserDataStore } from '@/store/users';
+import { logout } from '@/utils/auth.utils';
 
-const router = useRouter();
+const router: Router = useRouter();
 const showDropDown: Ref<boolean> = ref(false);
-const { clearLoggedInUser, loggedInUser } = useUserDataStore();
+const { loggedInUser } = useUserDataStore();
 
 const toggleDrop = (): void => {
   showDropDown.value = !showDropDown.value;
 }
 
-const logout = async () => {
-  const apiCall = await fetch('http://localhost:3330/api/auth/logout', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      session_token: localStorage.getItem('token')
-    })
-  }).then(apiCall => apiCall.json())
-
-  if (apiCall.success) {
-    localStorage.removeItem('token')
-    clearLoggedInUser();
-
-    router.push('/')
-  } else {
-    alert(apiCall.message)
-  }
+const handleLogout = (): void => {
+  logout(router);
 }
 </script>
 
@@ -56,7 +40,7 @@ const logout = async () => {
           Account settings
         </router-link>
         <button
-          @click="logout"
+          @click="handleLogout"
           type="submit"
           class="text-gray-700 block w-full px-4 py-2 text-left text-sm" role="menuitem"
           tabindex="-1"

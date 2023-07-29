@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { logout } from '@/utils/auth.utils'
+import { Router } from 'vue-router';
 import { useRouter } from 'vue-router';
 
-const router = useRouter();
+const router: Router = useRouter();
 
-const handleLogout = () => {
+const handleLogout = (): void => {
   logout(router);
 }
 </script>
