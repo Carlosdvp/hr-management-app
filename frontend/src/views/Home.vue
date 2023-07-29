@@ -26,6 +26,11 @@ const redirectToRegister = () => {
     </div>
   </div>
 
+  <div class="w-[100vw] bg-slate-600 h-[20%] text-center text-3xl text-white font-bold flex justify-center items-center">
+    <h1 v-if="loggedInUser">Welcome {{ loggedInUser?.firstName }}!</h1>
+    <h1 v-else>Please Log In or Register to continue.</h1>
+  </div>
+
   <div class="w-[100vw] bg-slate-600 h-[30%] text-center font-bold flex justify-center items-center">
     <div v-if="!loggedInUser">
       <button

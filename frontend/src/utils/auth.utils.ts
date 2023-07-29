@@ -1,7 +1,9 @@
+import { createPinia } from 'pinia';
 import { useUserDataStore } from '@/store/users';
 import { Router } from 'vue-router';
 
-const { clearLoggedInUser } = useUserDataStore();
+const pinia = createPinia();
+const { clearLoggedInUser } = useUserDataStore(pinia);
 
 export const logout = async (router: Router): Promise<void> => {
   const apiCall = await fetch('http://localhost:3330/api/auth/logout', {
