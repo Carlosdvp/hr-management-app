@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Ref, ref } from 'vue';
+import { Ref, computed, ref } from 'vue';
 import { User } from '@/types/User';
 import { useUserDataStore } from '@/store/users';
 import SearchBar from './SearchBar.vue';
@@ -9,11 +9,12 @@ const { clearDeletedUser, fetchUsers } = useUserDataStore();
 
 const headerItems: Ref<string[]> = ref<string[]>(['', 'Id', 'Email', 'First Name', 'Last Name']);
 const users: Ref<User[]> = ref<User[]>([]);
+const searchText: Ref<string> = ref('');
 
 const getUsers = async (): Promise<void> => {
-  const dbPollingInterval = 60 *60 *1000; // 1 hour
   users.value = await fetchUsers();
 
+  const dbPollingInterval = 60 *60 *1000; // 1 hour
   setInterval(async () => {
     users.value = await fetchUsers();
   }, dbPollingInterval);
@@ -44,6 +45,17 @@ const deleteUser = async () => {
   }
 }
 
+const filteredUsers = computed(() => {
+  return users.value.filter((user) => {
+    const searchTerm = searchText.value.toLowerCase();
+    
+    return (
+      user.firstName.toLowerCase().includes(searchTerm) ||
+      user.lastName.toLowerCase().includes(searchTerm)
+    );
+  })
+})
+
 getUsers();
 
 </script>
@@ -51,7 +63,8 @@ getUsers();
 <template>
   <div class="h-[calc(100vh-50px)] max-w-[1080px] w-full mx-auto my-0 bg-gray-200 p-[20px]">
     <div class="h-[60px] flex shadow-sm px-7 pb-5 items-center justify-end">
-      <SearchBar />
+      <SearchBar
+        :modelValue="searchText" @update:modelValue="searchText = $event" />
       <AddUser />
     </div>
 
@@ -72,7 +85,7 @@ getUsers();
 
       <div v-else class="pb-4">
         <div 
-          v-for="user in users"
+          v-for="user in filteredUsers"
           :key="user.id" 
           class="bg-slate-200 grid gap-x-1 text-center user-grid border border-slate-400 my-1 py-1">
           <input

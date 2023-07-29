@@ -1,10 +1,16 @@
 <script setup lang="ts">
+import { Ref, ref } from 'vue';
 
+const { modelValue } = defineProps(['modelValue']);
+const searchTerm: Ref<string> = ref(modelValue);
+const emits = defineEmits();
 </script>
 
 <template>
-  <form class="flex items-center w-[30%]">
-    <label for="search-field" class="sr-only">Search</label>
+  <form
+    @submit.prevent
+    class="flex items-center w-[30%]">
+    <label class="sr-only">Search</label>
     <div class="relative w-full">
       <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
         <svg
@@ -18,14 +24,15 @@
       </div>
       
       <input
+        v-model="searchTerm"
         type="text"
-        id="voice-search"
+        @input="emits('update:modelValue', searchTerm)"
         class="bg-gray-50 border border-gray-400 text-gray-900 text-sm rounded-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
         placeholder="Search..."
         required>
 
       <router-link
-        to="/"
+        to="/dashboard"
         class="flex absolute inset-y-0 right-0 items-center pr-3">
         <svg
           aria-hidden="true"
