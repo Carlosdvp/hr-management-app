@@ -120,6 +120,9 @@ hercules$11
 diamond@gmail.com
 diamond$11
 
+ceasar@gmail.com
+julianus99
+
 ## Auth0 Information
 
 Name:

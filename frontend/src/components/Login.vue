@@ -12,7 +12,9 @@ const errorMessage: Ref<string> = ref<string>('')
 
 const userLogin = async () => {
   if (!email.value || !password.value) {
-    return alert('Please enter username and password');
+    errorMessage.value ='Please enter a username and password';
+
+    return;
   }
 
   await fetchUsers();
