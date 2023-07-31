@@ -9,6 +9,11 @@ const { loggedInUser, setLoggedInUser } = useUserDataStore();
 const email: Ref<string> = ref<string>('');
 const password: Ref<string> = ref<string>('');
 const newEmail: Ref<string> = ref<string>('');
+const updateStatus: Ref<{ success: boolean; error: boolean; message: string }> = ref({
+  success: false,
+  error: false,
+  message: '',
+});
 
 email.value = loggedInUser?.email ?? '';
 
@@ -33,10 +38,17 @@ const updateSettings = async () => {
 
   if (updateResult.success) {
     setLoggedInUser(updateResult.user)
-
-    alert('Account settings updated successfully');
+    updateStatus.value = {
+      success: true, 
+      error: false, 
+      message: 'Account settings updated successfully'
+    };
   } else {
-    alert(updateResult.message);
+    updateStatus.value = {
+      success: false,
+      error: true,
+      message: updateResult.message
+    };
   }
 }
 </script>
@@ -54,6 +66,7 @@ const updateSettings = async () => {
     <header class="p-8">
       <h1 class="text-xl p-4 my-4 border border-white font-bold">HR Management App</h1>
       <h2 class="text-3xl py-4 mb-4">Settings</h2>
+      <h4>Here you can update your Email and/or your password.</h4>
     </header>
 
     <form 
@@ -90,6 +103,20 @@ const updateSettings = async () => {
         value="Update"
         class="border border-white px-4 py-1 cursor-pointer font-bold transition duration-200 ease-linear hover:bg-white"
       />
+      <div
+        v-if="updateStatus.success"
+        class="bg-green-100 text-green-600 p-4 mt-6">
+        <p>
+          {{ updateStatus.message }}
+        </p>
+      </div>
+      <div
+        v-else-if="updateStatus.error"
+        class="bg-red-100 text-red-600 p-4 mt-6">
+        <p>
+          {{ updateStatus.message }}
+        </p>
+      </div>
     </form>
   </main>
 </template>

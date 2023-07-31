@@ -120,12 +120,12 @@ const updateEmail = (event: InputEvent) => {
               type="email"
               :value="email"
               @input="updateEmail($event as InputEvent)"
-              class="w-[80%] border border-gray-300 mx-2 py-1 rounded" />
+              class="w-[80%] border border-gray-300 mx-2 p-1 rounded" />
           </div>
 
           <div class="mb-4 flex justify-between">
             <label class="block text-gray-600 p-1">Mobile:</label>
-            <input type="tel" class="w-[80%] border border-gray-300 mx-2 py-1 rounded" />
+            <input type="tel" class="w-[80%] border border-gray-300 mx-2 p-1 rounded" />
           </div>
 
           <div class="mb-4 flex justify-between">

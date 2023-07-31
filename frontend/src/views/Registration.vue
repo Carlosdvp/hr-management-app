@@ -4,20 +4,39 @@ import router from '@/router';
 import { Ref, ref } from 'vue'
 import { useUserDataStore } from '@/store/users'
 
+const { fetchUsers, setLoggedInUser }  = useUserDataStore();
+
 const firstName: Ref<string> = ref<string>('')
 const lastName: Ref<string> = ref<string>('')
 const email: Ref<string> = ref<string>('')
 const password: Ref<string> = ref<string>('')
 const confirmPassword: Ref<string> = ref<string>('')
-const { fetchUsers, setLoggedInUser }  = useUserDataStore();
+
+const registrationStatus: Ref<{ success: boolean; error: boolean; message: string }> = ref({
+  success: false,
+  error: false,
+  message: '',
+});
 
 const registerNewUser = async () => {
   if (!firstName.value || !lastName.value || !email.value || !password.value || !confirmPassword.value) {
-    return alert('Please fill in all the fields');
+    registrationStatus.value = {
+      success: false,
+      error: true,
+      message: 'Please fill in all the fields'
+    };
+
+    return;
   }
 
   if (password.value !== confirmPassword.value) {
-    return alert('Passwords do not match');
+    registrationStatus.value = {
+      success: false,
+      error: true,
+      message: 'Passwords do not match'
+    };
+
+    return;
   }
 
   await fetchUsers();
@@ -39,9 +58,18 @@ const registerNewUser = async () => {
     localStorage.setItem('token', sendUserData.token)
     setLoggedInUser(sendUserData.user)
 
+    registrationStatus.value = {
+      success: true,
+      error: false,
+      message: 'Registration successful. Redirecting...'
+    };
     router.push('/')
   } else {
-    alert(sendUserData.message);
+    registrationStatus.value = {
+      success: false,
+      error: true,
+      message: sendUserData.message
+    };
   }
 }
 </script>
@@ -118,6 +146,20 @@ const registerNewUser = async () => {
         type="submit"
         value="Register"
         class="border border-white px-4 py-1 cursor-pointer font-semibold transition duration-200 ease-linear hover:bg-white" />
+      <div
+        v-if="registrationStatus.success"
+        class="bg-green-100 text-green-600 p-4 mt-6">
+        <p>
+          {{ registrationStatus.message }}
+        </p>
+      </div>
+      <div
+        v-else-if="registrationStatus.error"
+        class="bg-red-100 text-red-600 p-4 mt-6">
+        <p>
+          {{ registrationStatus.message }}
+        </p>
+      </div>
     </form>
 
     <footer

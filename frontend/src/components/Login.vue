@@ -8,6 +8,7 @@ const { fetchUsers, setLoggedInUser }  = useUserDataStore();
 
 const email: Ref<string> = ref<string>('')
 const password: Ref<string> = ref<string>('')
+const errorMessage: Ref<string> = ref<string>('')
 
 const userLogin = async () => {
   if (!email.value || !password.value) {
@@ -34,7 +35,8 @@ const userLogin = async () => {
     setLoggedInUser(sendUserData.user);
     router.push('/dashboard')
   } else {
-    alert(sendUserData.message);
+    console.log(sendUserData.message);
+    errorMessage.value = sendUserData.message;    
   }
 }
 
@@ -91,6 +93,13 @@ const userLogin = async () => {
           Reset here
         </router-link>
       </p>
+      <div 
+        v-if="errorMessage"
+        class="bg-red-100 text-red-600 p-4">
+        <p>
+          {{ errorMessage }}
+        </p>
+      </div>
     </form>
 
     <footer
