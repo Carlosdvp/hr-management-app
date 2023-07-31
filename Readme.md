@@ -104,7 +104,12 @@ Side Quest 1
     - create a utils folder and a new auth.ts file
     - move the logout function there
     - import the logout method in the components that are currently using it.
+    - replace alerts with html messages in the components that are using alert popups to deliver error messages.
 
+20. Dockerize the application
+    - create a Dockerfile for the mySql container
+    - dockerize the api
+    - 
 
 
 ----------------------------------------------------------------------------------------

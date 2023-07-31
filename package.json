@@ -7,9 +7,9 @@
     "build": "tsc -p server/tsconfig.json",
     "db:seed": "npx ts-node server/src/seed.ts",
     "start:dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --exit-child server/src/server.ts",
-    "start": "node server/build/app.js"
+    "start": "node server/build/server.js"
   },
-  "author": "C",
+  "author": "V",
   "license": "ISC",
   "devDependencies": {
     "@types/cors": "^2.8.13",
