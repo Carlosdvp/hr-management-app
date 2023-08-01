@@ -11,7 +11,6 @@ export const authController = {
     const hashedPassword = await bcrypt.hash(userData.password, salt);
 
     try {
-      // create the user in the DB using prisma
       const user = await prisma.user.create({
         data: {
           firstName: userData.firstName,
@@ -51,15 +50,6 @@ export const authController = {
         })
       }
 
-      // const isPasswordValid = await bcrypt.compare(password, user.password);
-
-      // if (!isPasswordValid) {
-      //   return res.json({
-      //     success: false,
-      //     message: 'Email or password incorrect.'
-      //   })
-      // }
-
       return res.json({
         success: true,
         message: 'User logged in successfully',
@@ -73,24 +63,6 @@ export const authController = {
       })
     }
   },
-  // async authenticateToken(req: Request, res: Response) {
-  //   const { session_token } = req.body;
-
-  //   try {
-  //     await client.sessions.authenticate({ session_token })
-
-  //     return res.json({
-  //       success: true,
-  //       message: 'Token is valid'
-  //     })
-  //   } catch (error) {
-  //     res.json({
-  //       success: false,
-  //       message: 'Invalid session token.',
-  //       error: error
-  //     })
-  //   }
-  // },
   async userLogout(req: Request, res: Response) {
     const { session_token } = req.body;
 

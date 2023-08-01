@@ -117,6 +117,8 @@ Side Quest 1
     - delete users by id instead of by email
     - add form validation on the frontend
 
+
+
 ** Make a short video showing the app's features, explaining how some difficulties were solved. Add the video to my portfolio page. **
     - the Readme should have two sets of clear instructions on how to install and run the application
     - one set without Docker
@@ -160,14 +162,3 @@ Yn1J0VsfJvCiV76psfrnTV0lXNLUcjOWE0LRZqh5exSctYhZLnpDjBB8cXEQi7il
 
 
 --------------------------------------------------------------------------------
-
-## Upgrades to be considered
-
-### AddUser component
-
-- AddUser > sidebar should have a pop up (not an alert) that notifies user that a new user has been created successfully or not.
-- AddUser > clicking outside the form should also close the form
-- AddUser > creating a user should not redirect to home page, 
-    - it should show the success/fail message to the user
-    - it should close the form
-    - and it should remain on the same page
