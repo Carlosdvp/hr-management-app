@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { Ref, ref } from 'vue';
+import { Ref, ref, watchEffect } from 'vue';
 import router from '@/router';
 
 const firstName: Ref<string> = ref<string>('')
 const lastName: Ref<string> = ref<string>('')
 const email: Ref<string> = ref<string>('')
 const password: Ref<string> = ref<string>('')
-const showUserPanel: Ref<boolean> = ref(false);
+const showUserPanel: Ref<boolean> = ref(false)
+const addUserButtonRef: Ref<HTMLElement | null> = ref(null) 
 
 const toggleUserPanel = (): void => {
   showUserPanel.value = !showUserPanel.value;
@@ -33,13 +34,40 @@ const registerNewUser = async () => {
     alert(sendUserData.message);
   }
 }
+
+const handleDocumentClick = (event: MouseEvent) => {
+  const addUserPanel = document.querySelector('.max-w-lg');
+
+  if (addUserPanel && !addUserPanel.contains(event.target as Node) && showUserPanel.value) {
+    showUserPanel.value = false;
+  }
+};
+
+watchEffect(onInvalidate => {
+  if (addUserButtonRef.value) {
+    addUserButtonRef.value.addEventListener('click', stopPropagation);
+  }
+  document.addEventListener('click', handleDocumentClick);
+
+  onInvalidate(() => {
+    if (addUserButtonRef.value) {
+      addUserButtonRef.value.removeEventListener('click', stopPropagation);
+    }
+    document.removeEventListener('click', handleDocumentClick);
+  });
+});
+// Stop the click event from propagating to the document level
+const stopPropagation = (event: MouseEvent) => {
+  event.stopPropagation();
+};
 </script>
 
 <template>
   <button 
     class="flex items-center justify-center h-10 w-10 ml-6"
     @click="toggleUserPanel"
-    v-if="!showUserPanel">
+    v-if="!showUserPanel"
+    ref="addUserButtonRef">
     <svg 
       xmlns="http://www.w3.org/2000/svg"
       class="h-full w-full p-1" 
@@ -51,7 +79,7 @@ const registerNewUser = async () => {
     </svg>
   </button> 
 
-  <main 
+  <main
     class="max-w-lg w-[200px] h-full bg-slate-600 text-white z-20" 
     :class="{ 'hidden': !showUserPanel }">
     <div class="h-[50px] bg-slate-800 flex items-center justify-center">
@@ -109,6 +137,5 @@ const registerNewUser = async () => {
           class="w-[100%] border mx-auto my-0 border-white px-4 py-1 mt-4 cursor-pointer font-semibold transition duration-200 ease-linear text-white hover:bg-white hover:text-black" />
       </form>
     </div>
-    
   </main>
 </template>

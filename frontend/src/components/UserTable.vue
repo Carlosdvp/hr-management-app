@@ -79,6 +79,7 @@ getUsers();
     <div class="h-[60px] flex shadow-sm px-7 pb-5 items-center justify-end">
       <SearchBar
         :modelValue="searchText" @update:modelValue="searchText = $event" />
+        
       <AddUser />
     </div>
 
