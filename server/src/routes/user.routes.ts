@@ -7,6 +7,6 @@ routes.get("/", userController.getUsers);
 routes.get("/:email", userController.findUniqueUser);
 routes.post("/add-user", userController.addUser);
 routes.put('/:email', userController.updateUser);
-routes.delete('/:email', userController.deleteUser);
+routes.delete('/:id', userController.deleteUser);
 
 export default routes;

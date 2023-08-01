@@ -112,6 +112,10 @@ Side Quest 1
     - dockerize the frontend
     - create a docker-compose file for the entire application
 
+21. UI Improvement > AddUser side panel behavior
+    - also > fix bug: creation of an empty user
+    - delete users by id instead of by email
+    - add form validation on the frontend
 
 ----------------------------------------------------------------------------------------
 

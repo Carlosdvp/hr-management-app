@@ -94,11 +94,11 @@ export const userController = {
     }
   },
   async deleteUser(req: Request, res: Response) {
-    const paramEmail: string = req.params.email;
+    const paramId: string = req.params.id;
 
     const deletedUser = await prisma.user.delete({
       where: {
-        email: paramEmail,
+        id: paramId,
       },
     });
 

@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Express } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { authRoutes, userRoutes } from "./routes";
@@ -6,7 +6,7 @@ import { authRoutes, userRoutes } from "./routes";
 dotenv.config();
 
 class App {
-  public server;
+  public server: Express;
 
   constructor() {
     this.server = express();

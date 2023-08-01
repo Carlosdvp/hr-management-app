@@ -10,6 +10,7 @@ const { clearDeletedUser, fetchUsers } = useUserDataStore();
 const headerItems: Ref<string[]> = ref<string[]>(['', 'Id', 'Email', 'First Name', 'Last Name']);
 const users: Ref<User[]> = ref<User[]>([]);
 const searchText: Ref<string> = ref('');
+const userDeleteMessage: Ref<string> = ref<string>('')
 
 const getUsers = async (): Promise<void> => {
   users.value = await fetchUsers();
@@ -23,12 +24,13 @@ const getUsers = async (): Promise<void> => {
 const deleteUser = async () => {
   const selectedUsers = users.value.filter((user) => user.isSelected);
   if (selectedUsers.length === 0) {
-    console.log('No users selected for deletion');
+    setUserDeleteMessage('No users selected for deletion, select one or more users to delete.');
+    
     return;
   }
 
   for (let user of selectedUsers) {
-    const result = await fetch(`http://localhost:3330/api/users/${user.email}`, {
+    const result = await fetch(`http://localhost:3330/api/users/${user.id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -36,11 +38,15 @@ const deleteUser = async () => {
     }).then((response) => response.json());
 
     if (user) {
-      console.log(`User: ${result.deletedUser.email}, deleted successfully`);
+      const message = `User: ${result.deletedUser.id}, deleted successfully`;
+      setUserDeleteMessage(message);
+
+      console.log(`User: ${result.deletedUser.id}, deleted successfully`);
       clearDeletedUser(user);
       await getUsers();
     } else {
-      console.log(selectedUsers || 'Failed to delete user');
+      console.log(selectedUsers);
+      setUserDeleteMessage('Failed to delete user');
     }
   }
 }
@@ -55,6 +61,14 @@ const filteredUsers = computed(() => {
     );
   })
 })
+
+const setUserDeleteMessage = (message: string) => {
+  userDeleteMessage.value = message;
+
+  setTimeout(() => {
+    userDeleteMessage.value = '';
+  }, 5000);
+}
 
 getUsers();
 
@@ -101,6 +115,14 @@ getUsers();
       <button
         class="bg-slate-500 text-white font-semibold p-2 border border-slate-900 transsition duration-200 ease-linear hover:bg-white hover:text-black cursor-pointer"
         @click="deleteUser">Delete Selected Users</button>
+      <div 
+        v-if="userDeleteMessage"
+        :class="{'fade-out': userDeleteMessage}"
+        class="bg-red-100 text-red-600 p-4">
+        <p>
+          {{ userDeleteMessage }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
@@ -108,5 +130,18 @@ getUsers();
 <style scoped>
 .user-grid {
   grid-template-columns: 2rem repeat(4, 1fr);
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.fade-out {
+  animation: fadeout 5s ease-in-out;
 }
 </style>
