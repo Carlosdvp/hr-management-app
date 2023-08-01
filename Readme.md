@@ -109,7 +109,8 @@ Side Quest 1
 20. Dockerize the application
     - create a Dockerfile for the mySql container
     - dockerize the api
-    - 
+    - dockerize the frontend
+    - create a docker-compose file for the entire application
 
 
 ----------------------------------------------------------------------------------------

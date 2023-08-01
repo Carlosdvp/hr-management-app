@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: hr-management-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: humanresources-db
+      MYSQL_PASSWORD: password
+      MYSQL_USER: admin
+    ports:
+      - 3306:3306
+    volumes:
+      - db_data:/var/lib/mysql
+
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: hr-management-app
+    restart: always
+    environment:
+      DATABASE_URL: mysql://admin:password@db:3306/humanresources-db  # Use the service name 'db' as the hostname for the database
+      PORT: 3000  # Adjust the port if needed
+    ports:
+      - 3000:3000
+    volumes:
+      - ./server/src:/app/src
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: hr-management-ui
+    restart: always
+    environment:
+      VITE_API_URL: http://api:3000  # Use the service name 'api' as the API URL
+    ports:
+      - 8080:8080
+    volumes:
+      - ./frontend/src:/app/src
+
+volumes:
+  db_data: {}
