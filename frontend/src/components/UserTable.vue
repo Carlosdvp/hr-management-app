@@ -79,8 +79,8 @@ getUsers();
     <div class="h-[60px] flex shadow-sm px-7 pb-5 items-center justify-end">
       <SearchBar
         :modelValue="searchText" @update:modelValue="searchText = $event" />
-        
-      <AddUser />
+
+      <AddUser @user-registered="getUsers"  />
     </div>
 
     <div class="border-2 border-white p-[20px]">
@@ -129,20 +129,9 @@ getUsers();
 </template>
 
 <style scoped>
+@import '@/style.css';
+
 .user-grid {
   grid-template-columns: 2rem repeat(4, 1fr);
-}
-
-@keyframes fadeout {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-.fade-out {
-  animation: fadeout 5s ease-in-out;
 }
 </style>

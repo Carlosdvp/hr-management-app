@@ -117,6 +117,16 @@ Side Quest 1
     - delete users by id instead of by email
     - add form validation on the frontend
 
+** Make a short video showing the app's features, explaining how some difficulties were solved. Add the video to my portfolio page. **
+    - the Readme should have two sets of clear instructions on how to install and run the application
+    - one set without Docker
+    - one set with Docker
+
+Then, additional features and improvements can be done little by little. Right now I think I have reached the stage of an MVP for this application.
+
+
+
+
 ----------------------------------------------------------------------------------------
 
 ## Test Users

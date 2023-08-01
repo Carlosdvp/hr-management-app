@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { Ref, ref, watchEffect } from 'vue';
-import router from '@/router';
+import { Ref, computed, ref, watchEffect } from 'vue';
+
+const emit = defineEmits();
 
 const firstName: Ref<string> = ref<string>('')
 const lastName: Ref<string> = ref<string>('')
@@ -8,6 +9,8 @@ const email: Ref<string> = ref<string>('')
 const password: Ref<string> = ref<string>('')
 const showUserPanel: Ref<boolean> = ref(false)
 const addUserButtonRef: Ref<HTMLElement | null> = ref(null) 
+const userMessage: Ref<string> = ref('');
+const userMessageClass: Ref<string> = ref('');
 
 const toggleUserPanel = (): void => {
   showUserPanel.value = !showUserPanel.value;
@@ -28,10 +31,27 @@ const registerNewUser = async () => {
   }).then(sendUserData => sendUserData.json())
 
   if (sendUserData.success) {
+
     localStorage.setItem('token', sendUserData.token)
-    router.push('/')
+    userMessage.value = 'User registered successfully';
+    userMessageClass.value = 'bg-green-100 text-green-600 p-4';
+    setTimeout(() => {
+      userMessage.value = '';
+      toggleUserPanel();
+    }, 3000);
+
+    firstName.value = '';
+    lastName.value = '';
+    email.value = '';
+    password.value = '';
+
+    emit('user-registered');
   } else {
-    alert(sendUserData.message);
+    userMessage.value = sendUserData.message;
+    userMessageClass.value = 'text-red-600';
+    setTimeout(() => {
+      userMessage.value = '';
+    }, 3000);
   }
 }
 
@@ -60,6 +80,10 @@ watchEffect(onInvalidate => {
 const stopPropagation = (event: MouseEvent) => {
   event.stopPropagation();
 };
+
+const isFormValid = computed(() => {
+  return !!firstName.value && !!lastName.value && !!email.value && !!password.value;
+});
 </script>
 
 <template>
@@ -89,6 +113,9 @@ const stopPropagation = (event: MouseEvent) => {
       <form
         @submit.prevent
         class="flex-1 block mx-auto my-0 bg-slate-600 text-black py-6 px-6 text-left">
+        <p 
+          class="block text-base font-medium mb-4 text-white">
+          All Fields Are Required</p>
         <label class="block mb-6">
           <span class="block text-base font-medium mb-4 text-white">First name</span>
           <input
@@ -96,6 +123,7 @@ const stopPropagation = (event: MouseEvent) => {
             name="firstName" 
             v-model="firstName"
             placeholder="Name"
+            required
             class="h-[2rem] pl-2 border border-blue-400 focus:outline-none focus:border-red-800 focus:ring-red-800" />
         </label>
         <label class="block mb-6">
@@ -105,6 +133,7 @@ const stopPropagation = (event: MouseEvent) => {
             name="lastName" 
             v-model="lastName"
             placeholder="Lastname"
+            required
             class="h-[2rem] pl-2 border border-blue-400 focus:outline-none focus:border-red-800 focus:ring-red-800" />
         </label>
         <label class="block mb-6">
@@ -114,6 +143,7 @@ const stopPropagation = (event: MouseEvent) => {
             name="email" 
             v-model="email"
             placeholder="email@test.com"
+            required
             class="h-[2rem] pl-2 border border-blue-400 focus:outline-none focus:border-red-800 focus:ring-red-800" />
         </label>
         <label class="block mb-6">
@@ -123,19 +153,37 @@ const stopPropagation = (event: MouseEvent) => {
             name="password" 
             v-model="password"
             placeholder="******"
+            required
             class="h-[2rem] pl-2 border border-blue-400 focus:outline-none focus:border-red-800 focus:ring-red-800" />
         </label>
         <input
           type="button"
           value="Add User"
           @click="registerNewUser"
-          class="w-[100%] border mx-auto my-0 border-white px-4 py-1 cursor-pointer font-semibold transition duration-200 ease-linear text-white hover:bg-white hover:text-black" />
+          :disabled="!isFormValid"
+          :class="[
+            'w-[100%] border mx-auto my-0 border-white px-4 py-1 mt-4 cursor-pointer font-semibold transition duration-200 ease-linear text-white',
+            !isFormValid ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'hover:bg-white hover:text-black']"/>
         <input
           type="button"
           value="Cancel"
           @click="toggleUserPanel"
           class="w-[100%] border mx-auto my-0 border-white px-4 py-1 mt-4 cursor-pointer font-semibold transition duration-200 ease-linear text-white hover:bg-white hover:text-black" />
       </form>
+      <div 
+        v-if="userMessage"
+        :class="{'fade-out': userMessage}"
+        class="bg-slate-200 p-2">
+        <p v-if="userMessage" :class="userMessageClass">{{ userMessage }}</p>
+      </div>
     </div>
   </main>
 </template>
+
+<style scoped>
+@import '@/style.css';
+
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
+</style>
