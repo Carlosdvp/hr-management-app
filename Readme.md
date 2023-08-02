@@ -145,20 +145,4 @@ diamond$11
 ceasar@gmail.com
 julianus99
 
-## Auth0 Information
-
-Name:
-HR Management App
-
-Domain:
-dev-tvr0olbu2jtnq2e1.us.auth0.com
-
-ClientID:
-G973zXMjkQtuOV3Snpl2jn1V8nTEJl2v
-
-Client Secret:
-Yn1J0VsfJvCiV76psfrnTV0lXNLUcjOWE0LRZqh5exSctYhZLnpDjBB8cXEQi7il
-
-
-
 --------------------------------------------------------------------------------
