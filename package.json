@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc -p server/tsconfig.json",
     "db:seed": "npx ts-node server/src/seed.ts",
+    "db:migrate": "npx prisma migrate dev",
     "start:dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --exit-child server/src/server.ts",
     "start": "node server/build/server.js"
   },

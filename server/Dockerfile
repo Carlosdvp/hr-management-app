@@ -12,6 +12,9 @@ RUN npm install
 # Copy the rest of the application files to the container's working directory
 COPY . .
 
+# Run Prisma migrations
+RUN npx prisma migrate dev
+
 # Build the TypeScript code
 RUN npm run build
 

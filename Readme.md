@@ -20,129 +20,69 @@
 - TailwindCSS
 - Vue Router
 - Vuetify (optional)
-- Stytch (authentication)
+
+------------------------------------------------------------------
+
+# Installating the Application
+
+## Installation Option 1 for local development
+
+In this option we only use a Docker container for the database.
+
+## Backend
+
+### Database
+
+Before we begin, make sure Docker Desktop is up and running.
+
+1. Navigate to the server/db folder
+    - edit the environment varialbes you need to change
+2. build your mysql image
+`docker build -t my_db .`
+3. Once the image is built, you can run a container, replace 'my_db' with a name for your container, add your own root password
+`docker run -d --name my_db_container -e MYSQL_ROOT_PASSWORD=mysecretpassword -p 3306:3306 my_db`
+4. Now your MySql database should be ready in your Docker container.
+5. Connect to it with a tool like MySql Workbench or HeidiSql
+
+### API
+
+1. Navigate to the server folder
+2. Rename .env.example to .env and update the environment variables as needed
+    - if using stytch or auth0 add your credentials
+    - otherwise ony add the database connection string and port
+3. Navigate to the project's root folder
+4. Run `npm install`
+5. Run `npm run db:migrate`
+6. Run `npm run start:dev`
+7. Now the server will be running on the port specified in the .env file
+
+### Frontend
+
+1. Navigate to the frontend folder
+2. Run `npm install`
+3. Run `npm run dev`
+4. The Ui will now be running on the Vite default port: 5173
+5. Register a new user to log in
+6. Afterwards you can login with the same user, create more users in the dashboard, or register new users on the Login page.
+
+-----------------------------------------------------------------------------------
+
+## Installation Option 2
+
+Make sure Docker Desktop is up and running.
+
+1. Navigate to the root of the project
+2. Open the docker-compose file and edit as needed
+3. Open a terminal and run this command:
+`docker-compose up -d`
+4. Check and make sure the three containers are up and running, you can check on the terminal or by looking in the Docker Desktop UI
+5. Connect to the database with HeidiMysql or similar tool, make sure it is good to go
+6. Navigate to the port specified for the UI and test the application by registering a new user.
 
 
--------------------------------------------------------------------
+------------------------------------------------------------------------------------
 
-## Overview
+## Installation Option 3
 
-1. Create the API with basic CRUD operations and corresponding endpoints
-2. Create a docker container for a MySQL DB
-3. Run Prisma migration to create new DB add first Table
-4. Use API to add some mock users
+Each component of the application ahs it's own Dockerfile, so if you prefer you can run the database and the api in their respective containers and the UI locally, or just the api locally, etc.
 
-5. Create a Vite project using Vue and TS
-6. Add TailwindCSS, vue-router, path alias (@), vue typings
-7. Connect UI with the API
-
-8. Dashboard View
-    - Move diferent sections into separate components [Navbar, SearchBar, Sidebar, UserTable, UserMenuDropdown]
-    - Work on UserTable component
-    - Fix the SearchBar component's styles
-9. Home view -- Login / Registration
-    - create the Login component and registration view
-
-10. On the BE add the authRoutes and controllers
-    - test the Registration endpoint and add a user to the DB (this is done)
-    - test the remaining endpoints with postman, make sure they refer to the data in the db
-        - /login
-        - /authenticate
-        - /logout
-
-11. Add the following features
-    - an AddUser button and Form
-    - the From will include the details needed to create a user
-    - it will use the /register endpoint
-    - it will have a button to add a user and one to cancel and exit the form
-
-12. Profile page component
-    - add the fields and their labels
-    - this will be all the data points that might be used down the line
-    - username should list the first and last names of the logged in user
-    - the email should be the logged in user's email
-    - same for the mobile number and the create and last modified elements
-    - fields in the profile form should be pre-populated if the respective data is present in the databse
-
-13. Before moving ahead, we need to add Pinia to handle the application's state
-    - install Pinia
-    - create the Users store
-    - add the actions we need
-    - update the Login component and the logout functionality
-    - update the registration component as well.
-
-14. Continue work on the Profile page
-    - replace the UserName placeholder in the UserMenuDropdown with the logged in user's name
-    - replace placeholder data in the profile page header
-    - pre-populate the profile information with the available data for the logged in user
-
-15. Hash password on Registration
-    - saved password hash in database
-    - use bcrypt to handle this task
-    - endpoint to edit/update: /login and /register
-
-16. Add the Settings Page
-    - user should be able to reset password 
-    - user should be able to change email
-    - it should have an 'update' button that makes an api call
-
-Side Quest 1
-    - stytch is causing too many hard to debug issues so I am removing it for now
-
-17. Add Delete button to use the delete user endpoint
-    - each user should have a checkbox
-    - you need to supply an email in the params to delete a user
-    - now we an delete one user or multiple users
-    - User Table is refreshed each time a suer is deleted to display the updated list of users
-    - user is also delete from the database and removed from the users store
-
-18. Add a Logout button to the Home page
-    - it should be displayed when loggedInUser is true
-    - when clicked the user is logged out and redirected to the Login page
-
-19. Refactor
-    - create a utils folder and a new auth.ts file
-    - move the logout function there
-    - import the logout method in the components that are currently using it.
-    - replace alerts with html messages in the components that are using alert popups to deliver error messages.
-
-20. Dockerize the application
-    - create a Dockerfile for the mySql container
-    - dockerize the api
-    - dockerize the frontend
-    - create a docker-compose file for the entire application
-
-21. UI Improvement > AddUser side panel behavior
-    - also > fix bug: creation of an empty user
-    - delete users by id instead of by email
-    - add form validation on the frontend
-
-
-
-** Make a short video showing the app's features, explaining how some difficulties were solved. Add the video to my portfolio page. **
-    - the Readme should have two sets of clear instructions on how to install and run the application
-    - one set without Docker
-    - one set with Docker
-
-Then, additional features and improvements can be done little by little. Right now I think I have reached the stage of an MVP for this application.
-
-
-
-
-----------------------------------------------------------------------------------------
-
-## Test Users
-
-capitan@gmail.com
-capitanfuturo$11
-
-hercules@gmail.com
-hercules$11
-
-diamond@gmail.com
-diamond$11
-
-ceasar@gmail.com
-julianus99
-
---------------------------------------------------------------------------------

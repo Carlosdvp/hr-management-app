@@ -28,6 +28,7 @@ services:
       - 3000:3000
     volumes:
       - ./server/src:/app/src
+    command: sh -c "npm run db:migrate && npm start"  # run the Prisma migration
 
   frontend:
     build:
