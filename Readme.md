@@ -5,21 +5,22 @@
 ## Backend
 
 - mySQL database
-- docker
+- Docker
 - Prisma
 - Node.js
 - Express
 - TypeScript
-
+- Vite
 
 ## Front End
 
 - Vue
-- Vuex or Pinia
+- Vue Router
+- Pinia
 - Typescript
 - TailwindCSS
-- Vue Router
-- Vuetify (optional)
+- Vite
+
 
 ------------------------------------------------------------------
 
@@ -38,9 +39,11 @@ Before we begin, make sure Docker Desktop is up and running.
 1. Navigate to the server/db folder
     - edit the environment varialbes you need to change
 2. build your mysql image
-`docker build -t my_db .`
-3. Once the image is built, you can run a container, replace 'my_db' with a name for your container, add your own root password
-`docker run -d --name my_db_container -e MYSQL_ROOT_PASSWORD=mysecretpassword -p 3306:3306 my_db`
+
+    `docker build -t my_db .`
+3. Once the image is built, you can run a container, replace 'my_db' with a name for your container, add your own root password:
+
+    `docker run -d --name my_db_container -e MYSQL_ROOT_PASSWORD=mysecretpassword -p 3306:3306 my_db`
 4. Now your MySql database should be ready in your Docker container.
 5. Connect to it with a tool like MySql Workbench or HeidiSql
 
