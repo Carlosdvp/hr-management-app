@@ -30,6 +30,18 @@
 
 Choose the most appropriate option from this list, keep in mind we need to host a DB, the api and the UI.
 
+Came across a weird Prisma bug, for some reason when running this command: npm run db:migrate [npx prisma migrate dev] I get an error: error: Environment variable not found: DATABASE_URL.
+
+Strangely enough the env variable is accessible by the rest of the application and the app itself works perfectly fine. Even the following prisma commands are ok:
+
+    - npx prisma valida
+    - npx prisma format
+    - npx prisma studio
+
+This command also works as it should: `npx prisma migrate dev --schema=./prisma/schema.prisma`
+
+So, to overcome this bug I will edit the npm run db:migrate command in the package.json file.
+
 
 ------------------------------------------------------------------------------------------------------------
 
