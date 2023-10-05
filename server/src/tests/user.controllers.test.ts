@@ -1,9 +1,6 @@
-import supertest from 'supertest'
-import dotenv from "dotenv";
-import app from '../app'
+import { prisma, api } from './jest.setup.js';
 
 describe('User Controller', async () => {
-  dotenv.config();
   describe('Get Users', () => {
     describe('given the users table is empty', () => {
       it("should return an empty object", () => {
@@ -12,7 +9,7 @@ describe('User Controller', async () => {
     }),
     describe('given the users table is not empty', () => {
       it("should return a list of all the users", async () => {
-        const response = await supertest(app).get("/api/users");
+        const response = await api.get("/api/users");
 
         expect(response.status).toBe(200);
       })

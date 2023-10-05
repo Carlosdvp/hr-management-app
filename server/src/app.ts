@@ -5,7 +5,7 @@ import { authRoutes, userRoutes } from "./routes";
 
 dotenv.config();
 
-class App {
+export class App {
   public server: Express;
 
   constructor() {
@@ -25,4 +25,6 @@ class App {
   }
 }
 
-export default new App().server;
+const app = new App().server;
+
+export default app;

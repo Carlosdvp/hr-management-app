@@ -9,7 +9,7 @@
     "db:migrate": "cd server && npx prisma migrate dev --schema=./prisma/schema.prisma",
     "start:dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --exit-child server/src/server.ts",
     "start": "node server/build/server.js",
-    "test": "jest"
+    "test": "jest --detectOpenHandles"
   },
   "author": "V",
   "license": "ISC",
