@@ -7,9 +7,10 @@
     "build": "tsc -p tsconfig.json",
     "db:seed": "npx ts-node src/seed.ts",
     "db:migrate": "cd server && npx prisma migrate dev --schema=./prisma/schema.prisma",
+    "prisma:generate": "npx prisma generate --schema=./prisma/schema.prisma",
     "start:dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --exit-child src/server.ts",
     "start": "node build/server.js",
-    "test": "jest --no-cache"
+    "test": "cross-env NODE_ENV=test jest --no-cache"
   },
   "author": "V",
   "license": "ISC",
@@ -20,6 +21,7 @@
     "@types/node": "^20.4.0",
     "@types/supertest": "^2.0.13",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "jest": "^29.7.0",
     "supertest": "^6.3.3",
     "ts-jest": "^29.1.1",

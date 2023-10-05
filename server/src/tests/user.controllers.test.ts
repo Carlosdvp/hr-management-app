@@ -1,34 +1,22 @@
 import 'dotenv/config';
-import { PrismaClient } from '@prisma/client'
 import supertest, { SuperTest, Test } from 'supertest';
-
-const prisma = new PrismaClient({
-  datasources: {
-    db: {
-      url: process.env.TEST_DATABASE_URL
-    },
-  }
-});
 
 const app =  new (require('../app').App)().server; 
 const api: SuperTest<Test> = supertest(app);
 
 beforeAll(async () => {
-  await prisma.$connect();
 });
 
 afterEach(async () => {
 })
 
 afterAll(async () => {
-  await prisma.$disconnect();
 });
 
 describe('User Controller', () => {
   describe('Get Users', () => {
     describe('given the users table is empty', () => {
       it("should return an empty object", () => {
-        
         // this one will either need to be mocked
         // or
         // wait until I figure out how to test against the test dabase
@@ -50,7 +38,7 @@ describe('User Controller', () => {
       const testUser = {
         firstName: "Sexy",
         lastName: "Mary",
-        email: "test2@gmail.com",
+        email: "test@gmail.com",
         password: "maryonacross"
       }
 
