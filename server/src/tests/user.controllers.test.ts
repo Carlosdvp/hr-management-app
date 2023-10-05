@@ -1,9 +1,6 @@
 import 'dotenv/config';
 import { PrismaClient } from '@prisma/client'
-import supertest from 'supertest';
-
-const app =  new (require('../app').App)().server; 
-const api = supertest(app);
+import supertest, { SuperTest, Test } from 'supertest';
 
 const prisma = new PrismaClient({
   datasources: {
@@ -13,49 +10,77 @@ const prisma = new PrismaClient({
   }
 });
 
+const app =  new (require('../app').App)().server; 
+const api: SuperTest<Test> = supertest(app);
+
 beforeAll(async () => {
   await prisma.$connect();
 });
 
+afterEach(async () => {
+})
+
 afterAll(async () => {
   await prisma.$disconnect();
-});
-
-describe('Express Server', () => {
-  it('should respond with status 200 for GET /api/users', async () => {
-    const response = await api.get('/api/users');
-    expect(response.status).toBe(200);
-  });
 });
 
 describe('User Controller', () => {
   describe('Get Users', () => {
     describe('given the users table is empty', () => {
       it("should return an empty object", () => {
+        
+        // this one will either need to be mocked
+        // or
+        // wait until I figure out how to test against the test dabase
+
         expect(true).toBe(true);
       })
-    })
-    // describe('given the users table is not empty', () => {
-    //   it("should return a list of all the users", async () => {
-    //     const response = await api.get("/api/users");
+    }),
+    describe('given the users table is not empty', () => {
+      it("should return a list of all the users", async () => {
+        const response = await api.get("/api/users");
 
-    //     expect(response.status).toBe(200);
-    //   })
-    // })
+        expect(response.status).toBe(200);
+      })
+    })
+  }),
+
+  describe('Add a User', () => {
+    describe('given a new user is being added', () => {
+      const testUser = {
+        firstName: "Sexy",
+        lastName: "Mary",
+        email: "test2@gmail.com",
+        password: "maryonacross"
+      }
+
+      it('should create a new user', async () => {
+        const response = await api
+          .post("/api/users/add-user")
+          .send(testUser);
+        
+        expect(response.status).toBe(200);
+        expect(response.body.user.id).toBeDefined();
+      })
+    }),
+    describe('given that the required data is incomplete', () => {
+      const testUser2 = {
+        firstName: "Sexy",
+        lastName: "Mary",
+        email: "test5@gmail.com"
+      }
+
+      it('should throw an error', async () => {
+        const response = await api
+          .post("/api/users/add-user")
+          .send(testUser2);
+        
+        expect(response.status).toBe(400);
+        expect(response.body.success).toBe(false);
+      })
+    })
   })
 })
-//   describe('Add a User', () => {
-//     describe('given the new user is not in the database', () => {
-//       it('should add the new user to the databse', () => {
-//         expect(true).toBe(true);
-//       })
-//     }),
-//     describe('given that the required data is incomplete', () => {
-//       it('should throw an error', () => {
-//         expect(true).toBe(true);
-//       })
-//     })
-//   }),
 //   describe('Find a Unique User', () => {
 //     describe('given an email address', () => {
 //       it('should retrieve the user from the database', async () => {

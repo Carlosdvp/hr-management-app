@@ -9,17 +9,25 @@ export const userController = {
     return res.json(users);
   },
   async addUser(req: Request, res: Response) {
-    const userData = req.body;
-    const user = await prisma.user.create({
-      data: {
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-        email: userData.email,
-        password: userData.password,
-      }
-    });
-
-    return res.json({ user: user });
+    try {
+      const userData = req.body;
+      const user = await prisma.user.create({
+        data: {
+          firstName: userData.firstName,
+          lastName: userData.lastName,
+          email: userData.email,
+          password: userData.password,
+        }
+      });
+  
+      return res.json({ user: user });
+    } catch (error) {
+      res.status(400).json({
+        success: false,
+        message: 'Missing a required parameter, unable to create user.',
+        error: error
+      })
+    }
   },
   async findUniqueUser(req: Request, res: Response) {
     const paramEmail: string = req.params.email;
