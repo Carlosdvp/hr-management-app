@@ -2,7 +2,9 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  setupFiles: ['<rootDir>/server/src/tests/jest.setup.ts'],
-  testMatch: ['**/**/*.test.ts'],
+  setupFiles: [
+    'dotenv/config'
+  ],
+  testMatch: ['**/*.test.ts'],
   forceExit: true,
 };

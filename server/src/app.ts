@@ -1,9 +1,7 @@
-import dotenv from "dotenv";
+import 'dotenv/config';
 import express, { Express } from "express";
 import cors from "cors";
 import { authRoutes, userRoutes } from "./routes";
-
-dotenv.config();
 
 export class App {
   public server: Express;
