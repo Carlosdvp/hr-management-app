@@ -20,7 +20,8 @@ export const userController = {
         }
       });
   
-      return res.json({ user: user });
+      return res.json({ user });
+
     } catch (error) {
       res.status(400).json({
         success: false,
@@ -30,15 +31,23 @@ export const userController = {
     }
   },
   async findUniqueUser(req: Request, res: Response) {
-    const paramEmail: string = req.params.email;
+    try {
+      const paramEmail: string = req.params.email;
 
-    const uniqueUser = await prisma.user.findUnique({
-      where: {
-        email: paramEmail,
+      const uniqueUser = await prisma.user.findUnique({
+        where: {
+          email: paramEmail,
+        }
+      });
+
+      if (!uniqueUser) {
+        return res.status(404).json({ error: "User not found, check email and try again." });
       }
-    });
 
-    return res.json({ uniqueUser: uniqueUser });
+      return res.json({ uniqueUser: uniqueUser });
+    } catch (error) {
+      console.error('Error retrieving user', error);
+    }
   },
   async updateUser(req: Request, res: Response) {
     const paramEmail: string = req.params.email;
@@ -46,46 +55,30 @@ export const userController = {
     const newPassword: string = req.body.password;
 
     try {
-      let updatedUser;
-
-      if (newEmail && newPassword) {
-        const hashedPassword = await bcrypt.hash(newPassword, 10);
-
-        updatedUser = await prisma.user.update({
-          data: {
-            email: newEmail,
-            password: hashedPassword,
-          },
-          where: {
-            email: paramEmail,
-          },
-        });
-      } else if(newEmail) {
-        updatedUser = await prisma.user.update({
-          data: {
-            email: newEmail,
-          },
-          where: {
-            email: paramEmail,
-          },
-        });
-      } else if (newPassword) {
-        const hashedPassword = await bcrypt.hash(newPassword, 10);
-
-        updatedUser = await prisma.user.update({
-          data: {
-            password: hashedPassword,
-          },
-          where: {
-            email: paramEmail,
-          },
-        });
-      } else {
+      if (!newEmail && !newPassword) {
         return res.status(400).json({ 
           success: false, 
-          message: "Please provide email or password to update"
+          message: "Please provide email or password to update",
         });
+      };
+
+      const updates: Record<string, any> = {};
+
+      if (newEmail) {
+        updates.email = newEmail;
       }
+
+      if (newPassword) {
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        updates.password = hashedPassword;
+      }
+        
+      const updatedUser = await prisma.user.update({
+        data: updates,
+        where: {
+          email: paramEmail,
+        },
+      });
 
       return res.json({ 
         success: true, 
