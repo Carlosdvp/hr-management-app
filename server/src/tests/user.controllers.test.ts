@@ -30,16 +30,12 @@ const testUsers = {
   },
 }
 
-beforeAll(async () => {});
-
 afterEach(async () => {
   await prisma.user.deleteMany({});
 })
 
-afterAll(async () => {});
-
-describe('User Controller', () => {
-  describe('Get Users', () => {
+describe('User Controllers', () => {
+  describe('getUsers', () => {
     describe('given the users table is empty', () => {
       beforeEach(async () => {
         await prisma.user.deleteMany({});
@@ -67,7 +63,7 @@ describe('User Controller', () => {
       })
     })
   }),
-  describe('Add a User', () => {
+  describe('addUser', () => {
     describe('given a new user is being added', () => {
       it('should create a new user', async () => {
         const response = await api
@@ -95,7 +91,7 @@ describe('User Controller', () => {
       })
     })
   }),
-  describe('Find a Unique User', () => {
+  describe('findUniqueUser', () => {
     describe('given an email address', () => {
       it('should retrieve the user from the database', async () => {
         
@@ -117,7 +113,7 @@ describe('User Controller', () => {
       })
     })
   }),
-  describe('Update a User', () => {
+  describe('updateUser', () => {
     let user: User | undefined;
 
     beforeEach(async () => {
@@ -178,7 +174,7 @@ describe('User Controller', () => {
       })
     })
   }),
-  describe('Delete a User', () => {
+  describe('deleteUser', () => {
     let user: User | undefined;
 
     beforeEach(async () => {

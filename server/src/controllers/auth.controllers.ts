@@ -6,11 +6,10 @@ const salt = 10;
 
 export const authController = {
   async registerNewUser(req: Request, res: Response) {
-    const userData = req.body;
-
-    const hashedPassword = await bcrypt.hash(userData.password, salt);
-
     try {
+      const userData = req.body;
+      const hashedPassword = await bcrypt.hash(userData.password, salt);
+      
       const user = await prisma.user.create({
         data: {
           firstName: userData.firstName,
@@ -26,7 +25,7 @@ export const authController = {
         user: user
       })
     } catch (error) {
-      res.json({
+      res.status(400).json({
         success: false,
         message: 'Someting went wrong, unable to create user.',
         error: error
@@ -34,17 +33,17 @@ export const authController = {
     }
   },
   async userLogin(req: Request, res: Response) {
-    const { email, password } = req.body;
-
     try {
+      const { email, password } = req.body;
+
       const user = await prisma.user.findUnique({
         where: {
           email: email,
         }
       })
 
-      if (!user) {
-        return res.json({
+      if (!user || (user.password != password)) {
+        return res.status(400).json({
           success: false,
           message: 'Email or password incorrect.'
         })
@@ -67,7 +66,6 @@ export const authController = {
     const { session_token } = req.body;
 
     try {
-
       return res.json({
         success: true,
         message: 'Successfully logged out'
