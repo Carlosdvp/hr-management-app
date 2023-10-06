@@ -9,7 +9,7 @@ const emits = defineEmits();
 <template>
   <form
     @submit.prevent
-    class="flex items-center w-[30%]">
+    class="flex items-center md:w-[40%] sm:w-[80%]">
     <label class="sr-only">Search</label>
     <div class="relative w-full">
       <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">

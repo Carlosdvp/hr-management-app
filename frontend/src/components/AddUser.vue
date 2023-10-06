@@ -88,7 +88,7 @@ const isFormValid = computed(() => {
 
 <template>
   <button 
-    class="flex items-center justify-center h-10 w-10 ml-6"
+    class="flex items-center justify-center h-10 w-12 ml-6"
     @click="toggleUserPanel"
     v-if="!showUserPanel"
     ref="addUserButtonRef">

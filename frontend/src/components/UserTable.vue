@@ -90,7 +90,7 @@ getUsers();
         <p 
           v-for="(headerItem, index) in headerItems"
           :key="index"
-          class="font-bold p-2 text-center"
+          class="font-bold p-2 text-center sm:text-sm md:text-base"
         >
           {{ headerItem }}
         </p>
@@ -102,7 +102,7 @@ getUsers();
         <div 
           v-for="user in filteredUsers"
           :key="user.id" 
-          class="bg-slate-200 grid gap-x-1 text-center user-grid border border-slate-400 my-1 py-1">
+          class="bg-slate-200 grid gap-x-1 text-center user-grid border border-slate-400 my-1 py-1 sm:text-xs md:text-sm">
           <input
             class="w-12"
             type="checkbox"
