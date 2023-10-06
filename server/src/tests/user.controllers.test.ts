@@ -1,9 +1,19 @@
 import 'dotenv/config';
 import supertest, { SuperTest, Test } from 'supertest';
 import prisma from '../services/prisma';
+import bcrypt from 'bcrypt';
 
 const app =  new (require('../app').App)().server; 
 const api: SuperTest<Test> = supertest(app);
+
+interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  createdAt: string;
+}
 
 const testUsers = {
   testUserOne: {
@@ -108,40 +118,98 @@ describe('User Controller', () => {
     })
   }),
   describe('Update a User', () => {
-    describe('given a new email for the logged in user', () => {
-      it('should update the email for the user', () => {
-        expect(true).toBe(true);
+    let user: User | undefined;
+
+    beforeEach(async () => {
+      const response = await api.post("/api/users/add-user").send(testUsers.testUserOne);
+
+      user = await response.body.user;
+    })
+    describe('given a new email for the logged in user', () => {    
+      it('should update the email for the user', async () => {
+        const updatedEmail = 'newemail@gmail.com';
+        const updateResponse = await api.put(`/api/users/${user?.email}`).send({
+          email: updatedEmail
+        });
+
+        const getUpdatedUser = await api.get(`/api/users/${updatedEmail}`);
+
+        expect(updateResponse.status).toBe(200);
+        expect(getUpdatedUser.body.uniqueUser.email).toBe(updatedEmail);
       })
     }),
     describe('given a new password fo the logged in user', () => {
-      it('should update the password for the user', () => {
-        expect(true).toBe(true);
+      it('should update the password for the user', async () => {
+        const updatedPassword = '12345';
+        const updateResponse = await api.put(`/api/users/${user?.email}`).send({
+          password: updatedPassword
+        });
+
+        const getUpdatedUser = await api.get(`/api/users/${user?.email}`);
+        const passwordMatches = await bcrypt.compare(updatedPassword, getUpdatedUser.body.uniqueUser.password);
+
+        expect(updateResponse.status).toBe(200);
+        expect(passwordMatches).toBe(true);
       })
     }),
     describe('given a new email and a new password', () => {
-      it('should update both the email and password for the user', () => {
-        expect(true).toBe(true);
+      it('should update both the email and password for the user', async () => {
+        const updatedEmail = 'newemail@gmail.com';
+        const updatedPassword = '12345';
+        const updateResponse = await api.put(`/api/users/${user?.email}`).send({
+          email: updatedEmail,
+          password: updatedPassword
+        });
+
+        const getUpdatedUser = await api.get(`/api/users/${updatedEmail}`);
+        const passwordMatches = await bcrypt.compare(updatedPassword, getUpdatedUser.body.uniqueUser.password);
+
+        expect(updateResponse.status).toBe(200);
+        expect(getUpdatedUser.body.uniqueUser.email).toBe(updatedEmail);
+        expect(passwordMatches).toBe(true);
       })
     }),
     describe('given that no email or password were sent to update', () => {
-      it('should throw an error', () => {
-        expect(true).toBe(true);
+      it('should throw an error', async () => {
+        const updateResponse = await api.put(`/api/users/${user?.email}`).send({});
+
+        expect(updateResponse.status).toBe(400);
+        expect(updateResponse.body.success).toBe(false);
+      })
+    })
+  }),
+  describe('Delete a User', () => {
+    let user: User | undefined;
+
+    beforeEach(async () => {
+      const response = await api.post("/api/users/add-user").send(testUsers.testUserOne);
+
+      user = await response.body.user;
+    })
+    describe('given the email for an existing user', () => {
+      it('should delete that user from the database', async () => {
+        const userId = user?.id;
+        const deleteUserResponse = await api.delete(`/api/users/${userId}`);
+
+        expect(deleteUserResponse.status).toBe(200);
+        expect(deleteUserResponse.body.deletedUser.id).toBe(userId);
+      })
+    }),
+    describe('given an incorrect id to delete a user', () => {
+      it('should throw an error', async () => {
+        const deleteUserWrongId = await api.delete(`/api/users/123`);
+
+        expect(deleteUserWrongId.status).toBe(400);
+        expect(deleteUserWrongId.body.message).toBe("Failed to delete user");
+      })
+    }),
+    describe('given a non-existent or incorrect id to delete a user', () => {
+      it('should throw an error', async () => {
+        const emptyId = '';
+        const deleteUserWithNoId = await api.delete(`/api/users/${emptyId}`);
+
+        expect(deleteUserWithNoId.status).toBe(404);
       })
     })
   })
-
 })
-
-//   describe('Delete a User', () => {
-//     describe('given the email for an existing user', () => {
-//       it('should delete that user from the database', () => {
-//         expect(true).toBe(true);
-//       })
-//     }),
-//     describe('given a non-existent email for a suer', () => {
-//       it('should throw an error', () => {
-//         expect(true).toBe(true);
-//       })
-//     })
-//   })
-// })

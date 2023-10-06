@@ -95,14 +95,23 @@ export const userController = {
     }
   },
   async deleteUser(req: Request, res: Response) {
-    const paramId: string = req.params.id;
+    try {
+      const paramId: string = req.params.id;
+      
+      const deletedUser = await prisma.user.delete({
+        where: {
+          id: paramId,
+        },
+      });
 
-    const deletedUser = await prisma.user.delete({
-      where: {
-        id: paramId,
-      },
-    });
+      return res.json({ deletedUser: deletedUser });
+    } catch (error) {
+      console.error("Delete user error", error);
 
-    return res.json({ deletedUser: deletedUser });
+      return res.status(400).json({
+        success: false,
+        message: 'Failed to delete user',
+      });
+    }
   },
 };
