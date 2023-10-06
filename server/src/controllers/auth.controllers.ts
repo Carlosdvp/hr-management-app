@@ -62,6 +62,8 @@ export const authController = {
       })
     }
   },
+  // this endpoint isn't doing anything right now
+  // the logout functionality is being handled by the UI pinia store
   async userLogout(req: Request, res: Response) {
     const { session_token } = req.body;
 

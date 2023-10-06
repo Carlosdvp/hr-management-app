@@ -142,7 +142,9 @@ describe('User Controllers', () => {
         });
 
         const getUpdatedUser = await api.get(`/api/users/${user?.email}`);
-        const passwordMatches = await bcrypt.compare(updatedPassword, getUpdatedUser.body.uniqueUser.password);
+        const updatedPassworHash = await getUpdatedUser.body.uniqueUser.password;
+
+        const passwordMatches = await bcrypt.compare(updatedPassword, updatedPassworHash);
 
         expect(updateResponse.status).toBe(200);
         expect(passwordMatches).toBe(true);
@@ -158,7 +160,8 @@ describe('User Controllers', () => {
         });
 
         const getUpdatedUser = await api.get(`/api/users/${updatedEmail}`);
-        const passwordMatches = await bcrypt.compare(updatedPassword, getUpdatedUser.body.uniqueUser.password);
+        const updatedPassworHash = await getUpdatedUser.body.uniqueUser.password;
+        const passwordMatches = await bcrypt.compare(updatedPassword, updatedPassworHash);
 
         expect(updateResponse.status).toBe(200);
         expect(getUpdatedUser.body.uniqueUser.email).toBe(updatedEmail);

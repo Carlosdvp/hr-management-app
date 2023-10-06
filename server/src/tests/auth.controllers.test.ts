@@ -16,26 +16,22 @@ interface User {
 
 const testUsers = {
   testUserOne: {
-    firstName: "Holy",
-    lastName: "Mary",
-    email: "dear-goddess@gmail.com",
-    password: "maryonacross"
+    firstName: "Jack",
+    lastName: "Smack",
+    email: "dearAbby@gmail.com",
+    password: "singleMalt"
   },
   testUserTwo: {
-    firstName: "Dark",
-    lastName: "Prince",
-    email: "prince@gmail.com",
-    password: "theDarkPrince"
+    firstName: "Dick",
+    lastName: "Tracy",
+    email: "private@gmail.com",
+    password: "privydick"
   },
 }
-
-beforeAll(async () => {});
 
 afterEach(async () => {
   await prisma.user.deleteMany({});
 })
-
-afterAll(async () => {});
 
 describe('Auth Controllers', () => {
   describe('registerNewUser', () => {
@@ -114,15 +110,13 @@ describe('Auth Controllers', () => {
       })
     })
   }),
+  // this endpoint isn't doing anything right now
+  // the logout functionality is being handled by the UI pinia store
   describe('userLogout', () => {
-    describe('given the correct api call from the UI', () => {
-      it('should let the user log out',  () => {
-        expect(true).toBe(true);
-      })
-    }),
-    describe('given the user is unable to log out', () => {
-      it('should throw an error',  () => {
-        expect(true).toBe(true);
+    describe('given the correct api call', () => {
+      it('should log out', async () => {
+        const loginResponse = await api.post("/api/auth/logout");
+        expect(loginResponse.status).toBe(200);
       })
     })
   })

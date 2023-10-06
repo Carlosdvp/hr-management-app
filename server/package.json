@@ -10,7 +10,7 @@
     "prisma:generate": "npx prisma generate --schema=./prisma/schema.prisma",
     "start:dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --exit-child src/server.ts",
     "start": "node build/server.js",
-    "test": "cross-env NODE_ENV=test jest --no-cache"
+    "test": "cross-env NODE_ENV=test jest --no-cache --runInBand"
   },
   "author": "V",
   "license": "ISC",
