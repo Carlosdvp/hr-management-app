@@ -30,8 +30,6 @@ const userLogin = async () => {
     })
   }).then(sendUserData => sendUserData.json())
 
-  console.log('Login', sendUserData)
-
   if (sendUserData.success) {
     localStorage.setItem('token', sendUserData.token);
     setLoggedInUser(sendUserData.user);

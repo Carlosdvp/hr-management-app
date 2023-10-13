@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
@@ -11,6 +12,10 @@ export default defineConfig({
     },
   },
   test: {
-    include: ['tests/**'],
+    globals: true,
+    environment: 'jsdom',
+    coverage: {
+      provider: 'istanbul'
+    }
   },
 })
